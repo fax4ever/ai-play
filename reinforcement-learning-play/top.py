@@ -43,7 +43,7 @@ def qlearn(
         if done:
             # start of new episode from episode 0 (state S0)
             # episods may have different steps
-            obs = env.reset()
+            obs = env.reset()[0]
 
         # progress of learning process: 1=>start 0=>finish
         # linear decay from 1 to 0
@@ -72,7 +72,7 @@ def rollouts(
 
     # Init
     done = False
-    obs = env.reset()
+    obs = env.reset()[0]
     disconting = 1
     ep = 0
     if render:
@@ -83,7 +83,7 @@ def rollouts(
         if done:
             if render:
                 print("New episode")
-            obs = env.reset()
+            obs = env.reset()[0]
             disconting = 1
             ep += 1
             if ep > n_episodes:

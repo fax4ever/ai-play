@@ -1,9 +1,8 @@
 import gymnasium as gym
 from gymnasium.wrappers import TimeLimit
-from top import rollouts, qlearn, RandomPolicy
+from top import rollouts, qlearn, RandomPolicy, GreedyPolicy
 
-#taxi_env = gym.make('Taxi-v3', render_mode="human")
-taxi_env = gym.make('Taxi-v3')
+taxi_env = gym.make('Taxi-v3', render_mode="rgb_array")
 taxi_env = TimeLimit(taxi_env, max_episode_steps=50)
 
 # Markof Decison Process (finite states (observations) - finite actions)
@@ -22,4 +21,16 @@ print("Random avg return", avg_return)
 
 qtable = qlearn(env=taxi_env, alpha0=0.1, gamma=0.95, max_steps=200000)
 
-print("Learning finished")
+policy_obj = GreedyPolicy(qtable)
+greedy_policy = {obs: policy_obj(obs) for obs in range(taxi_env.observation_space.n)}
+print(greedy_policy)
+
+avg_return = rollouts(
+    env=taxi_env,
+    policy=GreedyPolicy(qtable),
+    gamma=0.95,
+    n_episodes=20,
+    render=True,
+)
+
+print("Greedy avg return", avg_return)
