@@ -1,0 +1,19 @@
+import gymnasium as gym
+from gymnasium.wrappers import TimeLimit
+from qlearn import QLearn
+
+def main():
+    taxi_env = gym.make('Taxi-v3', render_mode="rgb_array")
+    taxi_env = TimeLimit(taxi_env, max_episode_steps=50)
+    qlearn = QLearn(taxi_env)
+
+    avg_return = qlearn.rollouts(5, False)
+    print("avg return before learning", avg_return)
+
+    qlearn.qlearn()
+
+    avg_return = qlearn.rollouts(20, False)
+    print("avg return after learning", avg_return)
+
+if __name__ == "__main__":
+    main()
