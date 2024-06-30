@@ -56,7 +56,7 @@ model2.summary()
 model2.compile(
     optimizer="adam",
     # we can see `from_logits=True` as a sigmoid function extra layer
-    # the output is transformed from any reals into the space of probability
+    # the output is transformed from any reals into the space of bernulli probability
     loss=losses.BinaryCrossentropy(from_logits=True),
     metrics=["accuracy"]
 )

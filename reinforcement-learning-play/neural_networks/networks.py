@@ -16,3 +16,10 @@ def make_model2():
         layers.Dense(128, activation='relu'),
         layers.Dense(1)
     ])
+
+def make_model3():
+    return models.Sequential([
+        layers.Flatten(input_shape=(28,28)),
+        layers.Dense(128, activation='relu'),
+        layers.Dense(10)
+    ])
