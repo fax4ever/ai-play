@@ -1,8 +1,8 @@
 import sklearn.datasets
 from sklearn.model_selection import train_test_split
-from network_regression import make_model1
+from networks import make_model1
 from tensorflow import keras
-from keras import callbacks
+from keras import callbacks, metrics
 import tensorflow as tf
 import datetime
 
@@ -38,3 +38,7 @@ model1.fit(
     epochs=20,
     callbacks=calls
 )
+
+pred_y1 = model1.predict(test_x1)
+mse = metrics.mean_squared_error(test_y1, pred_y1[:,0])
+print('Mean squared error', mse)

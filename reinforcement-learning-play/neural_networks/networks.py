@@ -9,3 +9,10 @@ def make_model1(input_shape):
     x = layers.Dense(1)(x)
 
     return models.Model(inputs=input, outputs=x, name="regression_fc1")
+
+def make_model2():
+    return models.Sequential([
+        layers.Flatten(input_shape=(28,28)),
+        layers.Dense(128, activation='relu'),
+        layers.Dense(1)
+    ])
