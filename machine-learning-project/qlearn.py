@@ -60,7 +60,7 @@ class QLearn:
 
         return sum_returns / n_episodes
     
-    def qlearn(self):
+    def qlearn(self) -> QDictionary:
         self.qtable = QDictionary(self.env.action_space.n)
 
         done = True
@@ -88,4 +88,9 @@ class QLearn:
             averagedQ = (1 - self.learning_rate) * oldQ + self.learning_rate * newQ
             self.qtable.set(obs, action, averagedQ)
             obs = obs2
+        self.trained = True
+        return self.qtable
+    
+    def qtable(self, qtable: QDictionary):
+        self.qtable = qtable
         self.trained = True

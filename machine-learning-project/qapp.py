@@ -3,8 +3,7 @@ from gymnasium.wrappers import TimeLimit
 from qlearn import QLearn
 
 def main():
-    taxi_env = gym.make('Taxi-v3', render_mode="rgb_array")
-    taxi_env = TimeLimit(taxi_env, max_episode_steps=50)
+    taxi_env = gym.make('Taxi-v3', render_mode="rgb_array", max_episode_steps=500)
     qlearn = QLearn(taxi_env)
 
     avg_return = qlearn.rollouts(5, False)

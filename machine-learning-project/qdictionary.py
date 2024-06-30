@@ -14,5 +14,5 @@ class QDictionary:
     def get(self, obs, action: int) -> float:
         return self.Q[obs][action]
     
-    def set(self, obs, action: int, value: action):
+    def set(self, obs, action: int, value: float):
         self.Q[obs][action] = value
