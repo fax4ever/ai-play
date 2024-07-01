@@ -2,7 +2,7 @@ import gymnasium as gym
 from qlearn import QLearn
 
 def main():
-    qlearn = QLearn(gym.make('FrozenLake-v1', max_episode_steps=100))
+    qlearn = QLearn(gym.make('FrozenLake-v1', max_episode_steps=500))
 
     avg_return = qlearn.rollouts(5, False)
     print("avg return before learning", avg_return)
@@ -12,7 +12,7 @@ def main():
     avg_return = qlearn.rollouts(20, False)
     print("avg return after learning", avg_return)
 
-    qlearn2 = QLearn(gym.make('FrozenLake-v1', max_episode_steps=100, render_mode="human"))
+    qlearn2 = QLearn(gym.make('FrozenLake-v1', max_episode_steps=500, render_mode="human"))
     qlearn2.qtable(qtable)
 
     avg_return = qlearn2.rollouts(5, False)
