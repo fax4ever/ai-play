@@ -9,7 +9,6 @@ class QLearn:
         self.learning_steps = 200000
         self.env = env
         self.trained = False
-
         print("observation space", self.env.observation_space)
         print("action space", self.env.action_space)
 
@@ -36,7 +35,7 @@ class QLearn:
     def greedyAction(self, obs) -> int:
         return self.qtable.action(obs)
 
-    def rollouts(self, n_episodes: int, useQ: bool) -> float:
+    def rollouts(self, n_episodes: int) -> float:
         sum_returns = 0.0
         done = False
         obs = self.env.reset()[0]
@@ -54,7 +53,7 @@ class QLearn:
             action = self.rolloutsAction(obs)
             #observation, reward, terminated, truncated, info
             obs, rew, d1, d2, info = self.env.step(action)
-            done = d1 | d2
+            done = d1 or d2
             sum_returns += rew * disconting
             disconting *= self.discount_factor
 
@@ -78,7 +77,7 @@ class QLearn:
             # get the new observation (that is next state --- full observability)
             # and the revenue we get performing the step
             obs2, rew, d1, d2, info = self.env.step(action)
-            done = d1 | d2
+            done = d1 or d2
 
             # Q(obs,a)
             oldQ = self.qtable.get(obs, action)

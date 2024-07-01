@@ -2,8 +2,8 @@ import tensorflow as tf
 from tensorflow import keras
 from keras import layers, models, optimizers, losses, metrics
 
-def make_model1(input_shape):
-    input = layers.Input(input_shape)
+def make_model1(n_features):
+    input = layers.Input([n_features])
     x = layers.Dense(32, activation="relu")(input)
     x = layers.Dense(32, activation="relu")(x)
     x = layers.Dense(1)(x)

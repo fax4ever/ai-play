@@ -21,7 +21,7 @@ train_x1, test_x1, train_y1, test_y1 = train_test_split(
     random_state=1918357
 )
 
-model1 = make_model1([n_features])
+model1 = make_model1(n_features)
 model1.summary()
 
 model1.compile(

@@ -1,33 +1,55 @@
 from collections import deque
 import random
 import numpy as np
-from keras import layers, models, optimizers, losses, metrics
+from keras import layers, models, optimizers, losses
 
+# the neural network:
+# it is designed to have one input for each state value (in the input layer)
+# and to have one output (linear - returning any real value) for each action
+# we use the relu activation function to denote non-linear behaviours
 def network(input_size: int, output_size: int):
-    network = models.Sequential([
-        layers.Dense(24, input_dim=input_size, activation='relu'),
-        layers.Dense(24, activation='relu'),
-        layers.Dense(output_size, activation='linear')
-    ])
+    input = layers.Input([input_size])
+    x = layers.Dense(24, activation="relu")(input)
+    x = layers.Dense(24, activation="relu")(x)
+    x = layers.Dense(output_size)(x)
+    network = models.Model(inputs=input, outputs=x, name="regression_fc1")
+
+    # if it does not perform very well, we can reduce the **learning_rate (learning step)** 
+    # of the stocastic gradient descent here:
     network.compile(optimizer=optimizers.Adam(), loss=losses.MeanSquaredError())
     network.summary()
     return network
 
 class QNetwork:
-    def __init__(self, input_size: int, output_size: int):
+    def __init__(self, input_size: int, output_size: int, gamma: float):
+        # gamma is the discount_factor, provided by the problem using this network
+        self.gamma = gamma
+        # we will have minibatch with size batch_size, selected among our replay_buffer
+        self.batch_size = 32 
         self.replay_buffer = deque(maxlen=2000)
         self.network = network(input_size, output_size)
 
-    def remember(self, state, action, reward, next_state, done):
-        self.replay_buffer.append((state, action, reward, next_state, done))
+    def action(self, state) -> int:
+        q_values = self.network.predict(state)
+        return np.argmax(q_values[0])
 
-    def replay(self, batch_size):
-        minibatch = np.array(random.sample(self.memory, batch_size))
+    def save(self, state, action, reward, next_state, done):
+        self.replay_buffer.append([state, action, reward, next_state, done])
+        if (not done and len(self.replay_buffer) > self.batch_size):
+            self.__replay()
+
+    def __replay(self):
+        # the minibatch strategy supports the stocastic (for-non-linear) gradient descend
+        minibatch = np.asarray(random.sample(self.replay_buffer, self.batch_size), dtype="object")
         for state, action, reward, next_state, done in minibatch:
-            target = reward
+            newQ = reward
             if not done:
-                target = reward + self.gamma * np.amax(self.network.predict(next_state)[0])
-            target_f = self.network.predict(state)
-            target_f[0][action] = target
-            self.model.fit(state, target_f, epochs=1, verbose=0)        
+                # new Q(obs,a) = r + gamma * maxQ(obs2,<any>)
+                newQ += self.gamma * np.amax(self.network.predict(next_state))
+            # Update the Q(obs,a)    
+            Q = self.network.predict(state)
+            Q[0][action] = newQ
+            # provide this new output (Q) to the network
+            # this value will be merged with possible prexisting contributions
+            self.network.fit(state, Q, epochs=1, verbose=0)
 
