@@ -162,3 +162,10 @@ cython_debug/
 #.idea/
 
 reinforcement-learning-play/neural_networks/logs/*
+machine-learning-project/documentation/*.aux
+machine-learning-project/documentation/*.fdb_latexmk
+machine-learning-project/documentation/*.fls
+machine-learning-project/documentation/*.log
+machine-learning-project/documentation/*.pyg
+machine-learning-project/documentation/*.synctex.gz
+
