@@ -4,7 +4,6 @@ from networks import make_model1
 from tensorflow import keras
 from keras import callbacks, metrics
 import tensorflow as tf
-import datetime
 
 dataset1 = sklearn.datasets.fetch_california_housing()
 n_samples = dataset1.data.shape[0]

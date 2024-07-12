@@ -1,5 +1,5 @@
 import gymnasium as gym
-from dqn import DQN
+from qlearning.dqn import DQN
 
 def main():
     dqn = DQN(gym.make('CartPole-v1'))

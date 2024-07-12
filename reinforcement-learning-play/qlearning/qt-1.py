@@ -1,6 +1,6 @@
 import gymnasium as gym
 from gymnasium.wrappers import TimeLimit
-from top import rollouts, qlearn, RandomPolicy, GreedyPolicy
+from qtable import rollouts, qlearn, RandomPolicy, GreedyPolicy
 
 taxi_env = gym.make('Taxi-v3', render_mode="rgb_array")
 taxi_env = TimeLimit(taxi_env, max_episode_steps=50)

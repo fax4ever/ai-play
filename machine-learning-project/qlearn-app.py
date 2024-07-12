@@ -1,6 +1,6 @@
 import gymnasium as gym
 from gymnasium.wrappers import TimeLimit
-from qlearn import QLearn
+from qlearning.qlearn import QLearn
 
 def main():
     taxi_env = gym.make('Taxi-v3', render_mode="rgb_array", max_episode_steps=500)

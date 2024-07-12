@@ -1,5 +1,5 @@
 import gymnasium as gym
-from qlearn import QLearn
+from qlearning.qlearn import QLearn
 
 def main():
     qlearn = QLearn(gym.make('FrozenLake-v1', max_episode_steps=500))
