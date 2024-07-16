@@ -92,7 +92,7 @@ The last crucial setting we present in this chapter is the \textbf{learning rate
 The Q function is updated for supporting the indeterministic environments according to the formula:
 
 \begin{equation}
-  Q(s,a) = (1 - \alpha) Q(s,a) + \alpha [r + \gamma \max (Q(s',a'))]
+  Q(s,a) = (1 - \alpha) Q(s,a) + \alpha [r + \gamma \max\textsubscript{a'} (Q(s',a'))]
 \end{equation}
 
 Where s' is the state we get from s applying the action a, 
@@ -115,7 +115,7 @@ You can see the improvement given by the fact that the:
 
 \begin{itemize}
   \item Moving forward the actions are increasingly greedy and less random.
-  \item The agent is actually learning how to act better
+  \item The agent is actually learning how to act better.
 \end{itemize}
 
 \begin{figure}
@@ -124,6 +124,91 @@ You can see the improvement given by the fact that the:
   \label{fig:qlearning}
 \end{figure}
 
-\section{Deep Queue Network}
+\section{Deep Q-Learning}
+
+\subsection{Running the project}
+
+To trigger the learning process run from the \emph{machine-learning-project} directory the following code:
+
+\begin{verbatim}
+python dqn-app.py
+\end{verbatim}
+
+\subsection{Network design}
+
+A completely different way to represent the Q function is to use a neural network to denote it.
+In this case the result of the learning will be the training of the network.
+
+In the implementation provided by this project the neural network has been designed to have:
+\begin{itemize}
+  \item One input node for each state value, in the \emph{input layer}.
+  \item One output node for each action that can be performed, in the \emph{output layer}.
+  \item Two middle layers of size 24 each.
+\end{itemize}
+
+In the output layer we use a linear function (returning any real value) for each action,
+since the result of $Q(s,a)$ can assume any real value.
+
+In the middle layers we use the \emph{relu} activation function, that provides the fundamental 
+non linear property to the network.
+
+The network is dense, so the nodes between two adjacent layers are fully connected.
+
+\subsection{Mini batch approach}
+
+Each time we execute a step among the environment we collect the tuple:
+
+\begin{verbatim}
+  < state, action, reward, next_state, done >
+\end{verbatim}
+
+in the \emph{replay buffer}.
+We want to keep only the last \emph{50,000} events, so we implemented it as bounded deque.
+
+We train the network using a minibatch strategy that consists
+in randomly selecting a fixed size batch of events,
+in our case \emph{128}, from the replay buffer and use it to train the network,
+as a unit training step.
+
+The benefiths of this approach are that:
+
+\begin{itemize}
+  \item We save a lot computational resources, 
+  since we processes arrays of events, basically a matrix, at each $model.fit$ invocation.
+  \item The fact that every time we select a random subset of events 
+  to train the network allows to implement the stocastic gradient discend, that allows
+  to be not trapped in a local minimum when we compute the loss function.
+\end{itemize}
+
+\subsection{Policy and target networks}
+
+In this project we used two networks, having the same architecture but different weight:
+
+\begin{itemize}
+  \item A policy network, also called the main network:
+  \begin{itemize}
+    \item{Updated every very few steps (4 in our project)}
+  \end{itemize}   
+  \item A target network:
+  \begin{itemize}
+    \item{Synchronized each time only after we execute 10 episodes}
+    \item{Used to compute the $\max\textsubscript{a'} (Q(s',a'))$, when we calculate a new Q value}
+  \end{itemize} 
+\end{itemize}
+
+This strategy leads to more stability in the learning process.
+
+\subsection{Difference with the tabular approach}
+
+There are two main difference, compared with the tabular Q-learning:
+
+\begin{itemize}
+  \item{The Q function values are approximated, not exact}
+  \item{With the DQN we can train agent in environments having a countinous state values}
+\end{itemize}
+
+On the other hand other aspects are in common between the two approaches, such as
+the formula to compute the new $Q(s,a)$ value, or the application of the epsilon strategy
+to choose between the exploration action or a greedy (policy) action during the learning process.
 
 \end{document}

@@ -25,8 +25,8 @@ class QNetwork:
         # gamma is the discount_factor, provided by the problem using this network
         self.gamma = gamma
         # we will have minibatch with size batch_size, selected among our replay_buffer
-        self.batch_size = 32 
-        self.replay_buffer = deque(maxlen=2000)
+        self.batch_size = 128 
+        self.replay_buffer = deque(maxlen=50000)
         self.network = network(input_size, output_size)
 
     def action(self, state) -> int:
