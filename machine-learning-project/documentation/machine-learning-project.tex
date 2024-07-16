@@ -5,6 +5,7 @@
     \usepackage{amsmath,algpseudocode}
     \algdef{SE}[EVENT]{Event}{EndEvent}[1]{\textbf{upon event}\ #1\ \algorithmicdo}{\algorithmicend\ \textbf{event}}%
 	  \algtext*{EndEvent}
+    \usepackage{graphicx}
 \begin{document}
 
 \maketitle
@@ -109,7 +110,19 @@ observation and on a discrete value of the action.
 Thus in order to support with this approach continuous environment,
 we need first to apply a discretize of the state (and/or the action).
 
+Figure 1 \ref{fig:qlearning} presents the graph of the sum of the total rewards (not discounted) per episode get during the learning process.
+You can see the improvement given by the fact that the:
 
+\begin{itemize}
+  \item Moving forward the actions are increasingly greedy and less random.
+  \item The agent is actually learning how to act better
+\end{itemize}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{qlearning.png}
+  \caption{Q-Learning}
+  \label{fig:qlearning}
+\end{figure}
 
 \section{Deep Queue Network}
 
