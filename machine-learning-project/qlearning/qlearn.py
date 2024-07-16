@@ -61,10 +61,14 @@ class QLearn:
     
     def qlearn(self) -> QDictionary:
         self.qtable = QDictionary(self.env.action_space.n)
+        self.rewards = []  # List to store rewards per episode
 
         done = True
         for step in range(self.learning_steps):
             if done:
+                if 'total_reward' in locals():
+                    self.rewards.append(total_reward)
+                total_reward = 0
                 # start of new episode from episode 0 (state S0)
                 # episods may have different steps
                 obs = self.env.reset()[0]
@@ -78,6 +82,8 @@ class QLearn:
             # and the revenue we get performing the step
             obs2, rew, d1, d2, info = self.env.step(action)
             done = d1 or d2
+
+            total_reward += rew
 
             # Q(obs,a)
             oldQ = self.qtable.get(obs, action)

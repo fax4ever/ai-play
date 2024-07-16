@@ -168,4 +168,9 @@ machine-learning-project/documentation/*.fls
 machine-learning-project/documentation/*.log
 machine-learning-project/documentation/*.pyg
 machine-learning-project/documentation/*.synctex.gz
-
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.pyg
+*.synctex.gz

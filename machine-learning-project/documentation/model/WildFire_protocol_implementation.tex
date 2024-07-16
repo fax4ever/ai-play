@@ -1,0 +1,233 @@
+\documentclass{article}
+    \title{\textbf{WildFire protocol implementation}}
+    \author{Fabio Massimo Ercoli}
+    \date{April 2024}
+    \usepackage{amsmath,algpseudocode}% http://ctan.org/pkg/{amsmath,algorithmicx}
+    \algdef{SE}[EVENT]{Event}{EndEvent}[1]{\textbf{upon event}\ #1\ \algorithmicdo}{\algorithmicend\ \textbf{event}}%
+	\algtext*{EndEvent}
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\section{Introduction}
+
+In this report we will describe a possible synthetic implementation for the WireFire protocol described in the paper \emph{the price of validity in dynamic networks}\footnote{Mayank Bawa, Aristides Gionis, Hector Garcia-Molina, Rajeev Motwani:
+The price of validity in dynamic networks. J. Comput. Syst. Sci. 73(3): 245-264 (2007)
+https://doi.org/10.1016/j.jcss.2006.10.007
+}.\\
+For an exhaustive description of the problem setting and all the definitions, please refer to the paper itself or to the slides we prepared to present the project\footnote{https://docs.google.com/presentation/d/e2PACX-1vROzkpRvQPwjxz8qMWD3Abibt9yOG\_hLy-ldeUS2yxONSrcCGexbt1IEWM8eP9E\_dKk0FqHBx26rJk4/pub}.\\
+The idea is to find out an algorithm to reach some consistency guarantee, named \emph{single-site validity}, performing aggregate queries (min, max, sum, count and avg), among a very large and dynamic (high-churn rate) unstructured overlay network, in a crash-stop distributed model, in which we known upper bounds on process execution speeds, message transmission delays, and clock drift rates. \\
+While some stronger form of consistencies such as \emph{snapshot validity} or \emph{interval validity} are simply not possible to be achieved in this problem setting, the \emph{single-site validity} can be obtained for instance simply running a very simple but expensive dissemination algorithm called \emph{AllReport}.
+
+\subsection{Single-site validity}
+
+We can define the \emph{single-site validity} in the following way.
+A path p\textsubscript{h} is called \textbf{stable} if all its hosts (h\textsubscript{0}, ..., h\textsubscript{k}) and all the connections (h\textsubscript{i}, h\textsubscript{i+1}) between them are alive during the time interval [0, T], where [0, T] is the time interval in which the query is executed.\\
+Let H\textsubscript{c} be the set of all the hosts h having at least one stable path from h\textsubscript{q} (that is the host which invokes the query) and h. \\
+Let H\textsubscript{u} be the set of all the hosts h that are alive at some instant in [0, T].
+The single site validity is satisfied if:
+
+\begin{equation}
+\exists H. \quad H\textsubscript{c} \subseteq H \subseteq H\textsubscript{u} \quad \textrm{and} \quad v = q(V)
+\end{equation}
+
+Where \emph{v} is the result of the query applying the query function \emph{q} to \emph{V}, and V is the set of all the values locally-computed by all the hosts in H.
+
+\subsection{WildFire protocol}
+
+The paper introduces a more efficient algorithm to reach \emph{single site validity} named \emph{WildFire} 
+in which we have two kind of messages: \textbf{broadcast} and \textbf{convergecast}. \\
+The algorithm to implement \emph{min} and \emph{max} is the following:
+The query initiator, named the host \emph{H\textsubscript{q}}, starts the algorithm sending the broadcast message to all its neighbors. \\
+When a host delivers the broadcast message becomes active and it retransimts the broadcast message to all its neighbors. \\
+An active host exchanges and combines its partial query result with its neighbors through the \emph{convergecast} messages. 
+A \emph{convergecast} message is produced and send by some host:
+\begin{itemize}
+  \item When a host becomes active, since this can potentially introduce a new value on the system.
+  \item Whenever a host updates its local value, after a delivery of a convergecast message containing an updated value.
+  \item Whenever an stale value is delivered from a neighbor.
+\end{itemize}
+Thanks to the time assumptions, we can introduce and use the universal maximum delay value $\delta$ to determine when we should terminate the algorithm. \\
+In particular we can demostrate that as soon as we reached the time $2D\delta$, where \emph{D} is the stable diameter possibly to be overestimated by a reasonably small constant, we can safely return the distributed query result to the layer above satisfying \emph{single site validity}.
+
+\subsection{Continuous queries and approximate single-site validity}
+
+The paper describes also how to extend the protocol to cover continuous queries and the remaining aggregation function (count, sum and avg).
+The problem with those other aggregate functions is that they are \textbf{duplicate sensitive}.  \\
+The algorithm of the WildFire protocol to implement them satisfies a weaker form of single-site validity, that is only probabilistic, named \emph{approximate single-site validity}. \\ 
+The details are in the paper and on the slide, we won't cover those cases in this report, since our WildFire implementation will cover only the WildFire for \emph{min} and \emph{max} only, that it has been described in the previous chapter.
+
+\subsection{The price of validity}
+
+There are algorithms to compute distributed aggregation queries that are intrinsically more efficient in terms of number of messages required to be send or by number of messages expected to be processed by a random node, the paper mentions the \emph{SpanningTree} and the \emph{DirectedAcyclicGraph}. \\ 
+On the other hand, they do not satisfy the single-site validity. In particular in case of failures we cannot have any guarantees about the consistency of the returned result. \\
+The price of validity is the performance penalty of the \emph{WildFire} compared with the performance of the \emph{SpanningTree} and the \emph{DirectedAcyclicGraph}.
+
+\section{WildFire implementation}
+
+In this section we describe our implementation of the \emph{WildFire} algorithm to compute \emph{min} and \emph{max} distributed aggregation queries in terms of final algorithm, technologies used, implementation environment and simulation solution.
+
+\subsection{Optimized pseudocode}
+
+There are some adjustments that can be applied to the algorithm that seem to be suggested by the same example execution of the \emph{WildFire} protocol presented by the paper. \\
+For instance we can notice that sending a convergecast message to all the neighbors \textbf{each time} a node delivers a convergecast message that updates the local value A could be quite expensive. \\
+In our implementation we're going to apply what we can call \emph{a batching strategy}, in which we buffer all the delivered convergecast messages and we process them at regular interval ($\delta$). \\
+This should limit the overall number of convergecast messages delivered by the system. \\
+Another optimization, suggested by the same paper, is to merge the messages types \emph{broadcast} and \emph{convergecast}, piggybacking the local partial query result value on the \emph{broadcast} message. \\
+In the following you can find the pseudocode of the resulting algorithm. This pseudocode has been the driver of real code used to implement the solution. \\
+As you can see the messages are processed at regular intervals lasting $\delta$ and all the complexity is moved to the implementation of the \emph{process-pendings} procedure that is responsible to determine the convergecast messages that should be send \textbf{as a conseguence} of the current chunk of the devivered convergecast messages.
+
+\begin{algorithmic}[0]
+  \Event{$< wildfire, \ Init >$}
+    \State active := FALSE;
+    \State t0 := $\perp$;
+    \State pendings := $\emptyset$;
+  \EndEvent
+  \\
+  \Event{$< wildfire, \ Query \ | \ q >$} \Comment{Only on node Hq}
+  	\State active := TRUE;
+  	\State t0 := now();
+  	\State start-timer($\delta$)
+  	\State D := estimate-diameter()
+  	\State A := local-compute-query(q)
+    \For{\textbf{all} $p \in \Pi$}
+      \State $trigger < pl, Send \ | \ p, [DATA, \ q, \ t0, \ D, \ A] >$
+    \EndFor
+  \EndEvent
+  \\
+  \Event{$< pl, \ Deliver \ | \ from, [DATA, \ q, \ t0', \ D', \ A'] >$}
+  \If{$now()-t0' < 2D'\delta$}
+    \State pendings := pendings $\cup$ \{from, q, t0', D', A'\}
+    \If{$active = FALSE \ \land $ timer-is-not-started()}
+    	\State start-timer($\delta$)
+    \EndIf 
+  \EndIf
+  \EndEvent
+  \\
+  \Event{$< Timeout >$}
+  	\If{$now()-t0' < 2D'\delta$}
+  	\State process-pendings()
+  	\State start-timer($\delta$)
+  	\Else
+  	\State active := FALSE;
+  	\State $trigger < wildfire, QueryReturn \ | A >$
+  	\EndIf
+  \EndEvent
+  \\
+  \Procedure{process-pendings()}{}       \Comment{Invoked at each turn}
+    \If{$pendings \ne \emptyset $}
+    	\If{$active = FALSE$}
+    		\State t0 := pendings[0].t0
+    		\State D := pendings[0].D
+    		\State A := local-compute-query(q)
+    	\EndIf
+    	\State processes := $\Pi$
+    	\For{\textbf{all} $c \in pendings$}		
+      		\State Anew := combine(c.q, c.A, A) \Comment{Combine the results}
+      		\State processes := processes - \{c.from\}
+    	\EndFor
+    	\For{\textbf{all} $c \in pendings$}
+      		\If{$c.A \ne Anew$} 
+    			\State $trigger < pl, Send \ | \ p, [DATA, \ c.q, \ c.t0, \ c.D, \ Anew] >$
+    		\EndIf
+    	\EndFor
+    	\If{$Anew \ne A \ \lor$ active = FALSE}
+			\State A := Anew
+			\For{\textbf{all} $p \in processes$}
+    			\State $trigger < pl, Send \ | \ p, [DATA, \ c.q, \ t0, \ D, \ A] >$	
+    		\EndFor
+    		\State active := TRUE
+		\EndIf
+    	\State pendings := $\emptyset$
+    \EndIf
+  \EndProcedure
+\end{algorithmic}
+
+\subsection{Environment and tecnology}
+
+Instead of reinventing the wheel and recreate anything from screatch, we decided to integrate\footnote{See the GitHub pull request: https://github.com/krzysztof-turowski/distributed-framework/pull/49} our implementation of the \emph{WildFire} protocol into an open source project named \emph{distributed-framework}\footnote{https://github.com/krzysztof-turowski/distributed-framework} that already has several classic distributed algorithms already implemented (consesus, leader-election, ring-topology, ...). \\
+In particular the \emph{distributed-framework} project provides a series of nice utilities to set up, test and benchmark synthetic distributed algorithms: 
+\begin{itemize}
+  \item Graph builders: to generate different kind of graphs (such as empty, random, tree, ring, complete, torus, hypercube, hamiltonian, directed, undirected, …). A graph as usual can be described as set of nodes and edges, called channels in the context of the framework.
+  \item Generators: to generate unique ids among the entire system (that is used for instance by the vanilla Paxos algorithm)
+  \item Runners and Synchronizers: items that allow to control the time, in our case we will use them to process the pending convergecast messages at regular interval.
+  \item Failure generators: tools to simultare crash failure on nodes of the system and evaluate the dependability on a given execution of the algorithm.
+  \item Metrics collectors: number of messages, numer of rounds, time passed are stored and provided at the end of the execution to evalute the performance on a given execution of the algorithm.
+\end{itemize}
+
+The networks generated using the framework are synthetic, each node is not an independent process on an independent machine, as it would be on a real distributed system, but a goroutine, whose real degree of parallelism is determined by the Go-engine. (remember that concurrent  $\ne$ parallel). \\
+But thanks to synthetic utilities we mentioned earlier a real distributed-system seems to be pretty well simulated. \\
+On the other hand, it would be very expensive to run and test our algorithm on a real distributed system. Let's image how to cost to run our algorim for instance on 10,000 machine of any cloud provider. \\
+The framework is written in Golang and this language offers some nice and very model concurrent api.
+A goroutine is a lightweight thread managed by the Go runtime and it is used to simulate a concurrent node. \\
+Graph channels are implemented as Go channels and are used to send messages between and synchronize goroutines. \\
+Messages are delivered to node using the the Go select case statement, that allows a goroutine to wait on multiple communication operations. \\
+In the project Go mutexes are never used, since memory is never shared, but synthetic nodes can only use channels to communicate (as in real nodes). \\
+
+\subsection{Execution simulation}
+
+Our program has different parameters that allows the user to customize the experiment.
+\begin{itemize}
+	\item \emph{n}: number of nodes of our generated random graph
+	\item \emph{edgeProbability}: probability of an edge will be generated between any pair of nodes. This value will influence the connctivity (k).
+	\item \emph{faultyProbability}: probability that a given edge may become faulty and if an edge is faulty the probability that may crash at each round
+	\item \emph{query}: the query fuction to execute, possible values are \emph{min} or \emph{max}
+	\item \emph{values}: array storing local-computed-query values. The size of the array can be in general different from \emph{n}. In particular the system will apply the local-computed-query val according to the formula: 
+	\begin{equation}
+	A := values[(i * len(values)) / n]
+	\end{equation}
+	Where \emph{i} is the node index, so it can be any value from 0 to \emph{n}. In this way in the case of large graph we don't need to pass an array of the same size.
+	\item \emph{diameterExtimation}: an overestimation of the diameter of the random graph
+\end{itemize}
+The output will present the \emph{query result} and the \emph{number of messages} globally exchanged in the system during the time of the algorithm execution. \\
+To run the simulation. Clone the project:
+\begin{verbatim}
+git clone -b wildfire git@github.com:fax4ever/distributed-framework.git
+\end{verbatim}
+And execute command similar to following from the project directory:
+\begin{verbatim}
+go run example/wild-fire-aggregation-query.go 5000 0.01 0.2 max 2
+\end{verbatim}
+In this case we execute the algorithm on a graph of 5,000 nodes, with an emph{edgeProbability} of 0.01, with a \emph{faultyProbability} of 0.2, the \emph{query} is a \emph{max} and the \emph{diameterExtimation} is 2. \\
+For instance this is the result prompted from my machine:
+\begin{verbatim}
+2024/04/15 17:59:26 Round 4 finished
+2024/04/15 17:59:26 Total messages:  181272
+2024/04/15 17:59:26 Total rounds:  5
+Query result: 99 . #(messages):  181272
+\end{verbatim}
+Alternatevelly, you can run the automated test:
+\begin{verbatim}
+go test -timeout 30s -run ^TestWildFireAggregationQuery$ 
+github.com/krzysztof-turowski/distributed-framework/test
+\end{verbatim}
+In this case the parameters can be changes only changing the test class.
+Finally, a different method to execute the simulation is to compile the project:
+\begin{verbatim}
+go build example/wild-fire-aggregation-query.go 
+\end{verbatim}
+and run the compiled file as many times you want, optionally with different parameters:
+\begin{verbatim}
+./wild-fire-aggregation-query 50000 0.001 0.2 min 4
+\end{verbatim}
+
+\section{Comment on the achieved results}
+\subsection{Dependability evaluation}
+In this section, we report the outcome of some experiments similar to the ones presented in the paper chapter \emph{Achieving Single-Site Validity}, in which we also try to evaluate the quality of the result evaluated on different degrees of dynamism in the network. \\
+For this settings we will try a max function on a synthetic graph of 50,000 nodes, in which each node has a local-computed-query value that is exacly equal to the node id, so it will be an integer number from 0 to 49,999.
+The \emph{edgeProbability} for this test is 0.00004, this means that the expected value for the number of edges of a random node is 2. \\
+We retry the execution under different degrees of dynamism changing the \emph{faultyProbability} and we report the result on the following table.
+The results have no statistics validity, since we report only a single run for each parameter set.
+
+\begin{center}
+\begin{tabular}{ c c c }
+ 0.95 & 903 & 49,279 \\ 
+ 0.99 & cell5 & cell6 \\  
+ cell7 & cell8 & cell9    
+\end{tabular}
+\end{center}
+
+\subsection{Performance evaluation}
+\end{document}
+
