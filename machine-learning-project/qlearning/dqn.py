@@ -1,18 +1,12 @@
 import random
 import numpy as np
 import gymnasium as gym
+from qlearning.dqn_params import DQN_PARAMS
 from qlearning.qnetwork import QNetwork
 
 class DQN:
-    def __init__(self, env: gym.Env):
-        self.learning_rate = 0.1 # (alpha0)
-        self.discount_factor = 0.95 # (gamma)
-        self.replay_buffer_size = 50_000
-        self.mini_batch_size = 128
-        self.min_replay_buffer_size = 1_000
-        self.train_episodes = 300
-        self.steps_to_update_policy_model = 4
-        self.steps_to_update_target_model = 100
+    def __init__(self, env: gym.Env, params: DQN_PARAMS):
+        self.params = params
         self.env = env
         self.trained = False
         self.state_size = env.observation_space.shape[0]
@@ -38,7 +32,7 @@ class DQN:
             return self.randomAction()   
 
     def randomAction(self) -> int:
-        return random.randint(0, self.env.action_space.n - 1)
+        return random.randint(0, self.action_size - 1)
     
     def greedyAction(self, obs) -> int:
         return self.qtable.action(obs)    
@@ -59,19 +53,18 @@ class DQN:
                     break
             
             action = self.rolloutsAction(obs)
-            #observation, reward, terminated, truncated, info
-            obs, rew, d1, d2, info = self.env.step(action)
-            done = d1 | d2
+            obs, rew, terminated, truncated, _ = self.env.step(action)
+            done = terminated or truncated
             sum_returns += rew * disconting
-            disconting *= self.discount_factor
+            disconting *= self.params.discount_factor
 
         return sum_returns / n_episodes
 
     def qlearn(self):
-        self.qtable = QNetwork(self.state_size, self.action_size, self.discount_factor)
+        self.qtable = QNetwork(self.state_size, self.action_size, self.params)
         self.rewards = []  # List to store rewards per episode
 
-        for episode in range(self.train_episodes):
+        for episode in range(self.params.train_episodes):
             done = False
             terminated = False
             truncated = False
@@ -81,7 +74,7 @@ class DQN:
             
             while not done:
                 self.env.render()
-                eps = (self.train_episodes - episode) / self.train_episodes
+                eps = (self.params.train_episodes - episode) / self.params.train_episodes
                 action = self.learningAction(state, eps)
                 next_state, reward, terminated, truncated, _ = self.env.step(action)
                 total_reward += reward

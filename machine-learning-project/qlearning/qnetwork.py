@@ -2,6 +2,7 @@ from collections import deque
 import random
 import numpy as np
 from keras import layers, models, optimizers, losses
+from qlearning.dqn_params import DQN_PARAMS
 
 # the neural network:
 # it is designed to have one input for each state value (in the input layer)
@@ -21,9 +22,10 @@ def network(input_size: int, output_size: int):
     return network
 
 class QNetwork:
-    def __init__(self, input_size: int, output_size: int, gamma: float):
+    def __init__(self, input_size: int, output_size: int, params: DQN_PARAMS):
+        self.params = params
         # gamma is the discount_factor, provided by the problem using this network
-        self.gamma = gamma
+        self.gamma = params.discount_factor
         # we will have minibatch with size batch_size, selected among our replay_buffer
         self.batch_size = 128 
         self.replay_buffer = deque(maxlen=50000)

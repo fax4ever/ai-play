@@ -1,9 +1,11 @@
 import gymnasium as gym
 from qlearning.dqn import DQN
+from qlearning.dqn_params import DQN_PARAMS
 import matplotlib.pyplot as plt  # Library for plotting
 
 def main():
-    dqn = DQN(gym.make('CartPole-v1', max_episode_steps=500))
+    params = DQN_PARAMS()
+    dqn = DQN(gym.make('CartPole-v1', max_episode_steps=params.max_episode_steps), params)
 
     avg_return = dqn.rollouts(5)
     print("avg return before learning", avg_return)
