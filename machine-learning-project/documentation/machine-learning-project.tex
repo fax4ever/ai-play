@@ -211,4 +211,37 @@ On the other hand other aspects are in common between the two approaches, such a
 the formula to compute the new $Q(s,a)$ value, or the application of the epsilon strategy
 to choose between the exploration action or a greedy (policy) action during the learning process.
 
+\subsection{DQN project models}
+
+I tried to steal some ideas from some opensource preexisting projects from the web.
+In particular from \emph{minDQL}\footnote{minDQL https://github.com/mswang12/minDQN} on which I also to contribute with 
+a \emph{pull request}\footnote{My pull request: https://github.com/mswang12/minDQN/pull/9} 
+to aling the source code with the last versions of TensorFlow and Gymnasium.
+
+The stealed ideas was:
+
+\begin{itemize}
+  \item{To use two neural networks instead of one to stabilize the learning (see Policy and target networks)}
+  \item{To run the replay procedure from the replay buffer not at after each step to make the learning faster}
+  \item{To train the network on an array of Q values instead of on each at the time
+  \footnote{This is was also mentioned in the course, but the project helped me in having a reference implementation for the minibatch}}
+\end{itemize}
+
+And I applied them to my project.
+
+\subsection{DQL variables}
+
+\begin{tabular}{ c c c }
+  learning rate & $\alpha\textsubscript{0}$ & 0.1 \\
+  exploration / greedy & $\epsilon$ & linar decay from 0 to 1 \\
+  discounting factor & $\gamma$ & 0.95 \\  
+  replay buffer size & - & 50,000 \\
+  min replay buffer size & - & 1,000 \\
+  mini batch size & - & 128 \\
+  train episodes & - & 300 \\
+  steps to update policy model & - & 4 \\
+  steps to update target model & - & 100  \\
+  max episode steps & - & 500
+ \end{tabular}
+
 \end{document}

@@ -7,7 +7,12 @@ class DQN:
     def __init__(self, env: gym.Env):
         self.learning_rate = 0.1 # (alpha0)
         self.discount_factor = 0.95 # (gamma)
-        self.learning_steps = 200000
+        self.replay_buffer_size = 50_000
+        self.mini_batch_size = 128
+        self.min_replay_buffer_size = 1_000
+        self.train_episodes = 300
+        self.steps_to_update_policy_model = 4
+        self.steps_to_update_target_model = 100
         self.env = env
         self.trained = False
         self.state_size = env.observation_space.shape[0]
@@ -64,19 +69,28 @@ class DQN:
 
     def qlearn(self):
         self.qtable = QNetwork(self.state_size, self.action_size, self.discount_factor)
-        num_episodes = 10
-        for episode in range(num_episodes):
+        self.rewards = []  # List to store rewards per episode
+
+        for episode in range(self.train_episodes):
+            done = False
+            terminated = False
+            truncated = False
             state = self.env.reset()[0]
             state = np.reshape(state, [1, self.state_size])
-            for t in range(500):
+            total_reward = 0
+            
+            while not done:
                 self.env.render()
-                eps = (num_episodes - episode) / num_episodes
+                eps = (self.train_episodes - episode) / self.train_episodes
                 action = self.learningAction(state, eps)
-                next_state, reward, d1, d2, _ = self.env.step(action)
-                done = d1 or d2
+                next_state, reward, terminated, truncated, _ = self.env.step(action)
+                total_reward += reward
+                done = terminated or truncated
                 next_state = np.reshape(next_state, [1, self.state_size])
-
                 self.qtable.save(state, action, reward, next_state, done)
                 state = next_state
-                if done:
-                    break
+
+            self.rewards.append(total_reward)
+            print('Total training rewards: {} for episod number = {} with final reward = {} terminated = {} truncated = {}'
+                  .format(total_reward, episode, reward, terminated, truncated))
+            
