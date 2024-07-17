@@ -80,7 +80,10 @@ class DQN:
                 self.qtable.save(state, action, reward, next_state, done)
                 state = next_state
 
+            self.qtable.endEpisode()
             self.rewards.append(total_reward)
             print('Total training rewards: {} for episod number = {} with final reward = {} terminated = {} truncated = {}'
                   .format(total_reward, episode, reward, terminated, truncated))
+            
+        self.trained = True
             
