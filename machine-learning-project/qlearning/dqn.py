@@ -1,5 +1,4 @@
 import random
-import numpy as np
 import gymnasium as gym
 from qlearning.dqn_params import DQN_PARAMS
 from qlearning.qnetwork import QNetwork
@@ -69,7 +68,6 @@ class DQN:
             terminated = False
             truncated = False
             state = self.env.reset()[0]
-            state = np.reshape(state, [1, self.state_size])
             total_reward = 0
             
             while not done:
@@ -79,7 +77,6 @@ class DQN:
                 next_state, reward, terminated, truncated, _ = self.env.step(action)
                 total_reward += reward
                 done = terminated or truncated
-                next_state = np.reshape(next_state, [1, self.state_size])
                 self.qtable.save(state, action, reward, next_state, done)
                 state = next_state
 
