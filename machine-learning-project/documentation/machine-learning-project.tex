@@ -134,6 +134,25 @@ To trigger the learning process run from the \emph{machine-learning-project} dir
 python dqn-app.py
 \end{verbatim}
 
+You should see a message similar to the following:
+
+\begin{verbatim}
+observation space Box([. . . .], [. . . .], (4,), float32)
+action space Discrete(2)  
+avg return before learning 13.160926128670493
+avg return after learning 421.129321041020291
+\end{verbatim}
+
+The observation and the action space description is related to the \emph{Gymnasium} environment we used to train and test our agent, 
+that is the \emph{CartPole-v1}\footnote{$https://gymnasium.farama.org/environments/classic_control/cart_pole$} that has 4 
+continuous variables to denote the state and 2 discrete possible actions.
+
+The \emph{avg return} is the average of the score gained rolling out a series of episodes.
+In the case of this project 5 episodes are executed before the training and 20 after the training.
+The expectation is that the agent can get a better score after we properly trained it.
+
+An episod starts from the initial state and ends in case of a termination state is reached or is trunkated since the \textbf{max episode steps} value is reached.
+
 \subsection{Network design}
 
 A completely different way to represent the Q function is to use a neural network to denote it.
@@ -229,7 +248,24 @@ The stealed ideas was:
 
 And I applied them to my project.
 
-\subsection{DQL variables}
+\begin{figure}
+  \includegraphics[width=\linewidth]{DQN.png}
+  \caption{Q-Learning}
+  \label{fig:dqn-1}
+\end{figure}
+
+\subsection{DQL variables and results}
+
+Figure 2 \ref{fig:dqn-1} presents the graph of the sum of the total rewards (not discounted) per episode get during the learning process.
+Again, also in this case, you can see the improvement given by the fact that the:
+
+\begin{itemize}
+  \item Moving forward the actions are increasingly greedy and less random.
+  \item The agent is actually learning how to act better.
+\end{itemize}
+
+The training taked several time to be done, on my laptop around 20 minutes.
+This is the configuration settings we use to run it:
 
 \begin{tabular}{ c c c }
   learning rate & $\alpha\textsubscript{0}$ & 0.1 \\
@@ -243,6 +279,6 @@ And I applied them to my project.
   steps to update target model & - & 100  \\
   max episode steps & - & 500 \\
   network learning rate & - & 0.001
- \end{tabular}
+\end{tabular}
 
 \end{document}
