@@ -13,14 +13,14 @@
 We're presenting two possible Q-learning implementation approaches:
 \begin{itemize}
   \item Tabular based. Implemented using a numpy dictionary.
-  \item Neural network based. Also known as Deep Queue Network (DQN).
+  \item Neural network based. Also known as Deep Q-Network (DQN).
 \end{itemize}
 
 \section{Tabular Q-Learning}
 
 \subsection{Running the project}
 
-To trigger the learning process run from the \emph{machine-learning-project} directory the following code:
+To trigger the learning process run from the \emph{machine-learning-project} directory the following python command:
 
 \begin{verbatim}
 python qlearn-app.py
@@ -37,20 +37,19 @@ avg return after learning 2.5552244875845997
 
 The observation and the action space description is related to the \emph{Gymnasium} environment 
 we used to train and test our agent, that is the 
-\emph{Taxi-v3 environment}\footnote[1]{$https://gymnasium.farama.org/environments/toy_text/taxi$} 
+\emph{Taxi-v3 environment}\footnote[1]{$https://gymnasium.farama.org/environments/toy\_text/taxi$} 
 that has 500 discrete possible states and 6 possible actions.
 
 The \emph{avg return} is the average of the score gained rolling out a series of episodes.
 In the case of this project 5 episodes are executed before the training and 20 after the training.
 The expectation is that the agent can get a better score after we properly trained it.
 
-An episode starts from the initial state and ends in case of a termination state is reached or 
-is truncated since the \textbf{max episode steps} value is reached.
+An episode starts from the initial state and ends in case of a termination state has been reached or 
+can be truncated if the \textbf{max episode steps} value has been reached.
 
 This is the first value we can change to tune the learning, in general this value should be 
 great enough to allow the agent to learn and to rollout correctly the strategy it learned.
-We decide to increase it from 200, that is the default, to 500 and this change seems to 
-provide better performance to the learning.
+We decide to increase it from 200, that is the default for this environment, to 500.
 
 How can we evaluate the goodness of learning? In this case we simply compare the average score for an episode 
 performed using a random strategy (before learning) with the average score obtained after the learning.
@@ -70,27 +69,27 @@ The score depends on the actions the agent chooses, those are randomly selected 
 and after the training they are chosen according to the learned policy.
 
 The rollout procedure will collect the score for each epoch, applying the current discount factor to the reward.
-The score is averaged and returned to the caller.
+Finally, the value is averaged and returned to the caller.
 
 \subsection{The learning and the Q function}
 
-The output of the learning is a policy to choose for any given state (observation)\footnote[2]{
+The output of the learning is a policy to choose for any given state (or observation)\footnote[2]{
 In the context of this project that state is always fully observable, so we will use the term state 
-and observation interchangeably} an action among all possible actions to apply.
-The Q function associate to a given state and a given action the expected total score of taking the action in the state 
-and then continue to choose optimally the further actions.
+and observation interchangeably} an action among all the possible actions that are possible to apply.
+The Q function associate to a given state and a given action the expected total score of taking the action 
+in the given state and then continue to choose optimally the further actions.
 So we can use the Q function to choose the policy as the action that maximizes the expected total score.
 
-We call it the \emph{greedy policy}, since it maximizes the expected score not considering the fact that unexplored paths may
+We call it a \emph{greedy policy}, since it maximizes the expected score not considering the fact that unexplored paths may
 possibly lead to even greater scores, improving the Q function.
 At the begin of the learning we want always to apply a random strategy to learn as much as possible ($\epsilon = 0$).
 At the end of the learning on the other hand we want to exploit the knowledge we've acquired to perfectionate the policies on areas
 that we already know to be good ($\epsilon \approx 1$).
 In this project we use a linear decay from 0 to 1 of the \textbf{greedy factor} $\epsilon$ for the learning.
-Other decay functions of course are possible.
+Other decay functions are of course possible.
 
 How should the learning last for? In this project the learning finishes as soon as we run a number of actions
-equals to the \textbf{learning steps}. In this project we set this value to 200,000.
+equals to the \textbf{learning steps}, and we set this value to 200,000.
 
 The last crucial setting we present in this chapter is the \textbf{learning rate} $\alpha$\textsubscript{0}.
 The Q function is updated for supporting the indeterministic environments according to the formula:
@@ -99,14 +98,14 @@ The Q function is updated for supporting the indeterministic environments accord
   Q(s,a) = (1 - \alpha) Q(s,a) + \alpha [r + \gamma \max\textsubscript{a'} (Q(s',a'))]
 \end{equation}
 
-Where s' is the state we get from s applying the action a, 
+Where \emph{s'} is the state we get from s applying the action a, 
 and the $\max (Q(s',a'))$ is calculated among all the possible actions a' executable from s'.
 
 \subsection{The tabular approach}
 
 In this implementation the values for the Q function are stored as table items,
-in particular in order to represent only the subset of state we're interested in,  
-in this project we use a dictonary (instead of an array).
+in particular in order to represent only the subset of state we're interested in.  
+In this project we use a dictonary (instead of an array).
 
 This means that every time we update an entry on the Q function we operate on a discrete value of the
 observation and on a discrete value of the action.
@@ -132,7 +131,7 @@ during the learning process.You can see the improvement given by the fact that t
 
 \subsection{Running the project}
 
-To trigger the learning process run from the \emph{machine-learning-project} directory the following code:
+To trigger the learning process run from the \emph{machine-learning-project} directory the following python command:
 
 \begin{verbatim}
 python dqn-app.py
@@ -144,24 +143,27 @@ You should see a message similar to the following:
 observation space Box([. . . .], [. . . .], (4,), float32)
 action space Discrete(2)  
 avg return before learning 13.160926128670493
-avg return after learning 421.129321041020291
+
+... a long series of logs from TensorFlow ...
+
+avg return after learning 98.27961935316044
 \end{verbatim}
 
 The observation and the action space description is related to the \emph{Gymnasium} environment we used to train and test our agent, 
-that is the \emph{CartPole-v1}\footnote{$https://gymnasium.farama.org/environments/classic_control/cart_pole$} that has 4 
+that is the \emph{CartPole-v1}\footnote{$https://gymnasium.farama.org/environments/classic\_control/cart\_pole$} that has 4 
 continuous variables to denote the state and 2 discrete possible actions.
 
 The \emph{avg return} is the average of the score gained rolling out a series of episodes.
 In the case of this project 5 episodes are executed before the training and 20 after the training.
 The expectation is that the agent can get a better score after we properly trained it.
 
-An episod starts from the initial state and ends in case of a termination state is reached or is trunkated since 
-the \textbf{max episode steps} value is reached.
+An episode starts from the initial state and ends in case of a termination state has reached or is truncated if 
+the \textbf{max episode steps} value has been reached.
 
 \subsection{Network design}
 
-A completely different way to represent the Q function is to use a neural network to denote it.
-In this case the result of the learning will be the training of the network.
+A completely different way to represent the Q function is to use a neural network.
+In this case the learning process consists in the training of the network.
 
 In the implementation provided by this project the neural network has been designed to have:
 \begin{itemize}
@@ -201,7 +203,7 @@ The benefits of this approach are that:
   \item We apply the changes to the network, using \emph{fit} on an array of inputs and on an array of outputs, 
   instead of on a single single input and a single output.
   \item The fact that every time we select a random subset of events 
-  to train the network promote the stocastic gradient discend, that allows
+  to train the network promote the stochastic gradient descent, that allows
   to be not trapped in a local minimum when we compute the loss function.
 \end{itemize}
 
@@ -213,7 +215,7 @@ In this project we used two networks, having the same architecture but different
   \item A policy network, also called the main network:
   \begin{itemize}
     \item{Updated every very few steps (4 in our project)}
-    \item {Used to predict the $Q(s,a)$ current value}
+    \item {Used to get the $Q(s,a)$ current value}
   \end{itemize}   
   \item A target network:
   \begin{itemize}
@@ -242,11 +244,12 @@ to choose between the exploration action or a greedy (policy) action during the 
 
 I tried to steal some ideas from some open source pre existing projects from the web.
 In particular from \emph{minDQL}\footnote{minDQL https://github.com/mswang12/minDQN} on which I also to contribute with 
-a \emph{pull request}\footnote{My pull request: https://github.com/mswang12/minDQN/pull/9} 
-to align the source code with the last versions of TensorFlow and Gymnasium 
-that has been approved and merged to the project by the project's author!
+two \emph{pull requests}\footnote{My pull requests: https://github.com/mswang12/minDQN/pull/9, 
+https://github.com/mswang12/minDQN/pull/10} 
+to align the source code with the last versions of TensorFlow and Gymnasium
+and to plot the graph of the total rewards per episode during the training.
 
-The stealed ideas was:
+The stealed ideas were:
 
 \begin{itemize}
   \item{To use two neural networks instead of one to stabilize the learning (see Policy and target networks)}
@@ -291,7 +294,7 @@ The following are the parameters we use to run the learning:
   \hline
   learning rate & $\alpha\textsubscript{0}$ & 0.1 \\
   \hline
-  exploration / greedy & $\epsilon$ & linar decay from 0 to 1 \\
+  exploration / greedy & $\epsilon$ & linear decay from 0 to 1 \\
   \hline
   discounting factor & $\gamma$ & 0.95 \\  
   \hline
@@ -321,6 +324,135 @@ While figures \ref{fig:dqn-1} and \ref{fig:dqn-2} are the result of two learning
 setting by mistake the replay buffer size to 1,000 instead of 50,000.
 
 We can see that the total rewards can even reach the value of 500, but the learning is in general less stable.
-This is an example about the fact that the values of the parameters can seriously affect the learing quality.
+This is an example about the fact that the changing the values of the parameters can seriously affect the learning process.
+
+\section{Play with the parameters}
+
+In this final section we're going to explore the possibility of changing some of the parameters 
+and try to evaluate the effects on the learning process, looking at the learning curve.
+
+\subparagraph{Raise the learning rate}
+
+The first attempt we made is to raise the learning rate from 0.1 to 0.7.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{DQN-0005.png}
+  \caption{learning rate from 0.1 to 0.7}
+  \label{fig:dqn-5}
+\end{figure}
+
+The result was the graph depicted in figure \ref{fig:dqn-5}.
+Even if the change looks quite significant (from 0.1 to 0.7) we
+can see that the graph is pretty similar for instance to \ref{fig:dqn-2}.
+Anyway the graph looks pretty nice, so we can keep this change.
+
+\subparagraph{Lower the disconting factor}
+
+The second attempt we made was to lower the disconting factor from 0.95 to 0.618.
+But the result, depicted in figure \ref{fig:dqn-6} was not so good.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{DQN-0006.png}
+  \caption{disconting factor from 0.95 to 0.618}
+  \label{fig:dqn-6}
+\end{figure}
+
+We introduced some instability in the learning, so we decided to rollback this change.
+
+\subparagraph{Higher the disconting factor}
+
+Since raising the disconting factor seems to be not a good idea. We tried to raise it to 0.99.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{DQN-0007.png}
+  \caption{disconting factor from 0.95 to 0.99}
+  \label{fig:dqn-7}
+\end{figure}
+
+The result is depicted in figure \ref{fig:dqn-7} and it looks nice to me,
+since the score is always higher than 200 in the last 50 episodes and reaches also very high rate.
+So we decided to keep this change.
+
+\subparagraph{Lower the replay buffer size}
+
+The experience we had with the mistake of lowering too much the size of the reply buffer
+made me thinking about the fact that we try something in the between,
+so we tried to lower the reply buffer size from 50,000 to 35,000.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{DQN-0008.png}
+  \caption{replay buffer from 50k to 35k}
+  \label{fig:dqn-8}
+\end{figure}
+
+The result is depicted in figure \ref*{fig:dqn-8}.
+We decided to rollback this change since even if the graph showed a nice stability from episode
+200 to the end, the final total rewards look less high.
+
+\subparagraph{Lower the network learning step}
+
+Sometimes makes sense to lower the learning step of the network to reach an ideal local minimum,
+we called this value the network learning rate.
+Tring to lower it, we did get good results.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{DQN-0009.png}
+  \caption{network learning step to 0.0005}
+  \label{fig:dqn-9}
+\end{figure}
+
+The corresponding graph is depicted in figure \ref*{fig:dqn-9}.
+The results are great only in the very last episodes.
+So I decided to rollback this change.
+
+\subparagraph{The final change}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{DQN-0010.png}
+  \caption{final parameters}
+  \label{fig:dqn-10}
+\end{figure}
+
+This is last attempt we made playing with the parameters to improve the learning.
+We said that one idea we stealed from the \emph{minDQL} project was the the fact of not
+updating for every step the neural network, but instead doing that every 4 steps
+to make the learning faster.
+
+This time we try to lower this value to 2 and see the effects.
+But not only. We also change the learning rate from 0.7 to 0.3 and the replay buffer from 50,000 to 35,000.
+
+The results are depicted in figure \ref{fig:dqn-10} and I think that they are really nice.
+
+We can see that the total rewards are very high starting from episode 170,
+providing both stability and the high rates at the same time.
+So the following are the parameters we decided to keep for this project:
+
+\begin{center}
+  \begin{tabular}{ |c|c|c| }
+    \hline
+    learning rate & $\alpha\textsubscript{0}$ & 0.3 \\
+    \hline
+    exploration / greedy & $\epsilon$ & linear decay from 0 to 1 \\
+    \hline
+    discounting factor & $\gamma$ & 0.99 \\  
+    \hline
+    replay buffer size & - & 35,000 \\
+    \hline
+    min replay buffer size & - & 1,000 \\
+    \hline
+    mini batch size & - & 128 \\
+    \hline
+    train episodes & - & 300 \\
+    \hline
+    steps to update policy model & - & 2 \\
+    \hline
+    steps to update target model & - & 100  \\
+    \hline
+    max episode steps & - & 500 \\
+    \hline
+    network learning rate & - & 0.001 \\
+    \hline
+  \end{tabular}
+  \end{center}
 
 \end{document}
