@@ -25,7 +25,7 @@ class QNetwork:
     def __init__(self, input_size: int, output_size: int, params: DQN_PARAMS):
         self.params = params
         self.input_size = input_size
-        self.replay_buffer = deque(maxlen=params.min_replay_buffer_size)
+        self.replay_buffer = deque(maxlen=params.replay_buffer_size)
         self.policy_network = network(input_size, output_size, params)
         self.target_network = network(input_size, output_size, params)
         self.steps_to_update_target_model = 0
@@ -65,12 +65,13 @@ class QNetwork:
 
         for index, (state, action, reward, _, done) in enumerate(minibatch):
             if not done:
-                # new Q(obs,a) = r + gamma * maxQ(obs2,<any>)
+                # r + γ max a’(Q(s′, a′))
                 max_future_q = reward + self.params.discount_factor * np.amax(future_qs_list[index])
             else:
-                # new Q(obs,a) = r
+                # r
                 max_future_q = reward
             current_qs = current_qs_list[index]
+            # Q(s, a) = (1 − α)Q(s, a) + α[r + γ max a’(Q(s′, a′))]
             current_qs[action] = (1 - self.params.learning_rate) * current_qs[action] + self.params.learning_rate * max_future_q
             X.append(state)
             Y.append(current_qs)
