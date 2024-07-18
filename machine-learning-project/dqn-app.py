@@ -5,7 +5,8 @@ import matplotlib.pyplot as plt  # Library for plotting
 
 def main():
     params = DQN_PARAMS()
-    dqn = DQN(gym.make('CartPole-v1', max_episode_steps=params.max_episode_steps), params)
+    env = gym.make('CartPole-v1', max_episode_steps=params.max_episode_steps)
+    dqn = DQN(env, params)
 
     avg_return = dqn.rollouts(5)
     print("avg return before learning", avg_return)
@@ -14,6 +15,8 @@ def main():
 
     avg_return = dqn.rollouts(20)
     print("avg return after learning", avg_return)
+
+    env.close()
 
     # Plotting the rewards
     plt.figure(figsize=(10,6))  # Set the figure size

@@ -52,7 +52,7 @@ great enough to allow the agent to learn and to rollout correctly the strategy i
 We decide to increase it from 200, that is the default, to 500 and this change seems to 
 provide better performance to the learning.
 
-How can we evaluate the goodness of learning? In this case we simpy compare the average score for an episode 
+How can we evaluate the goodness of learning? In this case we simply compare the average score for an episode 
 performed using a random strategy (before learning) with the average score obtained after the learning.
 
 \subsection{The rollout and the score}
@@ -114,7 +114,7 @@ observation and on a discrete value of the action.
 Thus in order to support with this approach continuous environment,
 we need first to apply a discretize of the state (and/or the action).
 
-Figure 1 \ref{fig:qlearning} presents the graph of the sum of the total rewards (not discounted) per episode get 
+Figure \ref{fig:qlearning} presents the graph of the sum of the total rewards (not discounted) per episode get 
 during the learning process.You can see the improvement given by the fact that the:
 
 \begin{itemize}
@@ -187,20 +187,21 @@ Each time we execute a step among the environment we collect the tuple:
 \end{verbatim}
 
 in the \emph{replay buffer}.
-We want to keep only the last \emph{50,000} events, so we implemented it as bounded deque.
+We want to keep only the last \emph{50,000} events, so we implemented it as a bounded deque.
 
 We train the network using a minibatch strategy that consists
 in randomly selecting a fixed size batch of events,
 in our case \emph{128}, from the replay buffer and use it to train the network,
 as a unit training step.
 
-The benefiths of this approach are that:
+The benefits of this approach are that:
 
 \begin{itemize}
-  \item We save a lot computational resources, 
-  since we processes arrays of events, basically a matrix, at each $model.fit$ invocation.
+  \item We invoke the \emph{predict} function on an array of observations, instead of invoking a \emph{predict} on each observation.
+  \item We apply the changes to the network, using \emph{fit} on an array of inputs and on an array of outputs, 
+  instead of on a single single input and a single output.
   \item The fact that every time we select a random subset of events 
-  to train the network allows to implement the stocastic gradient discend, that allows
+  to train the network promote the stocastic gradient discend, that allows
   to be not trapped in a local minimum when we compute the loss function.
 \end{itemize}
 
@@ -212,11 +213,12 @@ In this project we used two networks, having the same architecture but different
   \item A policy network, also called the main network:
   \begin{itemize}
     \item{Updated every very few steps (4 in our project)}
+    \item {Used to predict the $Q(s,a)$ current value}
   \end{itemize}   
   \item A target network:
   \begin{itemize}
     \item{Synchronized each time only after we execute 10 episodes}
-    \item{Used to compute the $\max\textsubscript{a'} (Q(s',a'))$, when we calculate a new Q value}
+    \item{Used to predict the $\max\textsubscript{a'} (Q(s',a'))$, when we calculate a new Q value}
   \end{itemize} 
 \end{itemize}
 
@@ -228,7 +230,8 @@ There are two main difference, compared with the tabular Q-learning:
 
 \begin{itemize}
   \item{The Q function values are approximated, not exact}
-  \item{With the DQN we can train agent in environments having a countinous state values}
+  \item{With the DQN we can train agent in environments having a continuous state values}
+  without the need of discretize the inputs
 \end{itemize}
 
 On the other hand other aspects are in common between the two approaches, such as
@@ -237,10 +240,11 @@ to choose between the exploration action or a greedy (policy) action during the 
 
 \subsection{DQN project models}
 
-I tried to steal some ideas from some opensource preexisting projects from the web.
+I tried to steal some ideas from some open source pre existing projects from the web.
 In particular from \emph{minDQL}\footnote{minDQL https://github.com/mswang12/minDQN} on which I also to contribute with 
 a \emph{pull request}\footnote{My pull request: https://github.com/mswang12/minDQN/pull/9} 
-to aling the source code with the last versions of TensorFlow and Gymnasium.
+to align the source code with the last versions of TensorFlow and Gymnasium 
+that has been approved and merged to the project by the project's author!
 
 The stealed ideas was:
 
@@ -248,48 +252,75 @@ The stealed ideas was:
   \item{To use two neural networks instead of one to stabilize the learning (see Policy and target networks)}
   \item{To run the replay procedure from the replay buffer not at after each step to make the learning faster}
   \item{To train the network on an array of Q values instead of on each at the time
-  \footnote{This is was also mentioned in the course, but the project helped me in having a 
-  reference implementation for the minibatch}}
+  \footnote{This was also mentioned in the course, but the project helped me in having a 
+  reference implementation about how to pass the matrix parameters to the networks}}
 \end{itemize}
 
 And I applied them to my project.
 
 \begin{figure}
+  \includegraphics[width=\linewidth]{DQN-0003.png}
+  \caption{DQN learning - execution 1}
+  \label{fig:dqn-3}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{DQN-0004.png}
+  \caption{DQN learning - execution 2}
+  \label{fig:dqn-4}
+\end{figure}
+
+\begin{figure}
   \includegraphics[width=\linewidth]{DQN-0001.png}
-  \caption{single network DQN learning}
+  \caption{single network + small replay buffer}
   \label{fig:dqn-1}
 \end{figure}
 
 \begin{figure}
   \includegraphics[width=\linewidth]{DQN-0002.png}
-  \caption{First complete DQN learning}
+  \caption{small replay buffer}
   \label{fig:dqn-2}
 \end{figure}
 
 \subsection{DQL variables and results}
 
-Figure \ref{fig:dqn-1} presents the graph of the sum of the total rewards (not discounted) per episode get during 
-the learning process. When I run this learning I used only one neural network for the training.
+The following are the parameters we use to run the learning:
 
-The training taked several time to be done, on my laptop around 15 minutes.
-Finally with the following configuration settings and the final code:
-
-\begin{tabular}{ c c c }
+\begin{center}
+\begin{tabular}{ |c|c|c| }
+  \hline
   learning rate & $\alpha\textsubscript{0}$ & 0.1 \\
+  \hline
   exploration / greedy & $\epsilon$ & linar decay from 0 to 1 \\
+  \hline
   discounting factor & $\gamma$ & 0.95 \\  
+  \hline
   replay buffer size & - & 50,000 \\
+  \hline
   min replay buffer size & - & 1,000 \\
+  \hline
   mini batch size & - & 128 \\
+  \hline
   train episodes & - & 300 \\
+  \hline
   steps to update policy model & - & 4 \\
+  \hline
   steps to update target model & - & 100  \\
+  \hline
   max episode steps & - & 500 \\
-  network learning rate & - & 0.001
+  \hline
+  network learning rate & - & 0.001 \\
+  \hline
 \end{tabular}
+\end{center}
 
-I achieved the the result presented in figure \ref{fig:dqn-2}.
-Probably introducing the second network introduced some stability,
-but can we do better for instance changing some of the parameters?
+The total rewards (not discounted) per episode get during the learning process using these parameters are presented in
+figures \ref{fig:dqn-3} and \ref{fig:dqn-4}.
+
+While figures \ref{fig:dqn-1} and \ref{fig:dqn-2} are the result of two learnings runned 
+setting by mistake the replay buffer size to 1,000 instead of 50,000.
+
+We can see that the total rewards can even reach the value of 500, but the learning is in general less stable.
+This is an example about the fact that the values of the parameters can seriously affect the learing quality.
 
 \end{document}

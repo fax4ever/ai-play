@@ -62,6 +62,7 @@ class DQN:
     def qlearn(self):
         self.qtable = QNetwork(self.state_size, self.action_size, self.params)
         self.rewards = []  # List to store rewards per episode
+        self.trained = True
 
         for episode in range(self.params.train_episodes):
             done = False
@@ -84,6 +85,4 @@ class DQN:
             self.rewards.append(total_reward)
             print('Total training rewards: {} for episod number = {} with final reward = {} terminated = {} truncated = {}'
                   .format(total_reward, episode, reward, terminated, truncated))
-            
-        self.trained = True
             
