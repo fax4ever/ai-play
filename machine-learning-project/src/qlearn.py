@@ -1,6 +1,6 @@
 import random
 import gymnasium as gym
-from qlearning.qdictionary import QDictionary
+from qdictionary import QDictionary
 
 class QLearn:
     def __init__(self, env: gym.Env):

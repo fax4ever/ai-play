@@ -2,7 +2,7 @@ from collections import deque
 import random
 import numpy as np
 from keras import layers, models, optimizers, losses
-from qlearning.dqn_params import DQN_PARAMS
+from dqn_params import DQN_PARAMS
 
 # the neural network:
 # it is designed to have one input for each state value (in the input layer)

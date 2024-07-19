@@ -1,7 +1,7 @@
 import random
 import gymnasium as gym
-from qlearning.dqn_params import DQN_PARAMS
-from qlearning.qnetwork import QNetwork
+from dqn_params import DQN_PARAMS
+from qnetwork import QNetwork
 
 class DQN:
     def __init__(self, env: gym.Env, params: DQN_PARAMS):
