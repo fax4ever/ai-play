@@ -1,5 +1,5 @@
 (define (domain wta)
-  (:requirements :typing :fluents)
+  (:requirements :typing :fluents :disjunctive-preconditions :negative-preconditions)
   (:types
     place attraction hotel travel - object
     train_travel air_travel car_travel - travel
@@ -52,9 +52,9 @@
     )
     :effect (and
       (increase (total-cost) (cost_attraction ?a))
-      (increase (day_hours) (time_attraction ?t))
+      (increase (day_hours) (time_attraction ?a))
       (visited ?a)
-      (increase (n_of_visited) (1))
+      (increase (attractions_visited) 1)
     )
   )
   (:action rest
@@ -65,12 +65,12 @@
       (hotel_at ?h ?p)
     )
     :effect (and
-      (increase (total-cost) (cost ?h))
+      (increase (total-cost) (cost_hotel ?h))
       ;; `day_hours` is reset to 0
       ;; so that tomorrow I can visit more attractions
-      (= (day_hours) (0))
+      (assign (day_hours) 0)
       ;; one day is added
-      (increase (days) (1))
+      (increase (days) 1)
     )
   )
 )
