@@ -167,15 +167,17 @@
     (connect MunchenInnsbruck Munchen Innsbruck)
     (= (time_travel MunchenInnsbruck) 121)
     (= (cost_travel MunchenInnsbruck) 12)
-    (= (day_hours) 0)
-    (= (max_day_hours) 10)
+    (= (day_activity_minutes) 0)
+    (= (max_day_activity_minutes) 600)
     (= (days) 0)
     (= (attractions_visited) 0)
   )
   (:goal (and 
     (at Rome) ;; ending at home
-    (<= (total-cost) 2000) ;; max budget
-    (<= (days) 10) ;; in 10 days
+    (>= (attractions_visited) 7) ;; visit 7 attractions
+    (<= (days) 4) ;; in 4 days
   ))
-  (:metric maximize (attractions_visited))
+  ;; minimizing the total cost
+  ;; getting a bonus for each visisted attractions
+  (:metric minimize (- (total-cost) (* 100 (attractions_visited))))
 )

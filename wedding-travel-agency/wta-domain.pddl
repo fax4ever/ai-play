@@ -17,11 +17,12 @@
     (cost_travel ?t - travel)
     (cost_attraction ?a - attraction)
     (cost_hotel ?h - hotel)
-    ;; `day_hours`: denotes the current day hours spent 
+    ;; `day_activity_minutes`: denotes the current day activities time
+    ;; in minutes
     ;; travelling and visiting the attractions
-    (day_hours)
-    ;; this value cannot exceed `max_day_hours`
-    (max_day_hours)
+    (day_activity_minutes)
+    ;; this value cannot exceed `max_day_activity_minutes`
+    (max_day_activity_minutes)
     ;; `days`: the days have passed so far
     (days)
     (attractions_visited)
@@ -32,11 +33,11 @@
     :precondition (and 
       (at ?from) 
       (or (connect ?t ?from ?to) (connect ?t ?to ?from))
-      (<= (+ (day_hours) (time_travel ?t)) (max_day_hours))
+      (<= (+ (day_activity_minutes) (time_travel ?t)) (max_day_activity_minutes))
     )
     :effect (and
       (increase (total-cost) (cost_travel ?t))
-      (increase (day_hours) (time_travel ?t))
+      (increase (day_activity_minutes) (time_travel ?t))
       (not (at ?from))
       (at ?to)
     )
@@ -48,11 +49,11 @@
       (not (visited ?a))
       (at ?p)
       (attraction_at ?a ?p)
-      (<= (+ (day_hours) (time_attraction ?a)) (max_day_hours))
+      (<= (+ (day_activity_minutes) (time_attraction ?a)) (max_day_activity_minutes))
     )
     :effect (and
       (increase (total-cost) (cost_attraction ?a))
-      (increase (day_hours) (time_attraction ?a))
+      (increase (day_activity_minutes) (time_attraction ?a))
       (visited ?a)
       (increase (attractions_visited) 1)
     )
@@ -66,9 +67,9 @@
     )
     :effect (and
       (increase (total-cost) (cost_hotel ?h))
-      ;; `day_hours` is reset to 0
+      ;; `day_activity_minutes` is reset to 0
       ;; so that tomorrow I can visit more attractions
-      (assign (day_hours) 0)
+      (assign (day_activity_minutes) 0)
       ;; one day is added
       (increase (days) 1)
     )
