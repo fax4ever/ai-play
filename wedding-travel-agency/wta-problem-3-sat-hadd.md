@@ -1,6 +1,6 @@
-# sat-hadd
+# 3 sat-hadd
 
-> java -jar enhsp-dist/enhsp.jar -o /home/fax/code/ai-play/wedding-travel-agency/wta-domain.pddl -f /home/fax/code/ai-play/wedding-travel-agency/wta-problem.pddl -planner sat-hadd
+> java -jar enhsp-dist/enhsp.jar -o /home/fax/code/ai-play/wedding-travel-agency/wta-domain.pddl -f /home/fax/code/ai-play/wedding-travel-agency/wta-problem-3.pddl -planner sat-hadd
 
 Problem Solved
 

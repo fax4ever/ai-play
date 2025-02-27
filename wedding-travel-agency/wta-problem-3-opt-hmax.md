@@ -1,6 +1,6 @@
-# opt-hmax
+# 3 opt-hmax
 
-> java -jar enhsp-dist/enhsp.jar -o /home/fax/code/ai-play/wedding-travel-agency/wta-domain.pddl -f /home/fax/code/ai-play/wedding-travel-agency/wta-problem.pddl -planner opt-hmax
+> java -jar enhsp-dist/enhsp.jar -o /home/fax/code/ai-play/wedding-travel-agency/wta-domain.pddl -f /home/fax/code/ai-play/wedding-travel-agency/wta-problem-3.pddl -planner opt-hmax
 
 Problem Solved
 
