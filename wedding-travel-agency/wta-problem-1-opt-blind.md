@@ -14,10 +14,10 @@ Found Plan:
 
 Plan-Length:6
 Metric (Search):24.0
-Planning Time (msec): 110
+Planning Time (msec): 101
 Heuristic Time (msec): 0
-Search Time (msec): 107
-Expanded Nodes:486
-States Evaluated:1732
+Search Time (msec): 99
+Expanded Nodes:528
+States Evaluated:1973
 Number of Dead-Ends detected:0
-Number of Duplicates detected:598
+Number of Duplicates detected:637

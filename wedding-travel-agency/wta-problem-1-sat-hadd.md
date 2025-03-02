@@ -1,6 +1,6 @@
-# 1 opt-max
+# 1 sat-hadd
 
-> java -jar enhsp-dist/enhsp.jar -o /home/fax/code/ai-play/wedding-travel-agency/wta-domain.pddl -f /home/fax/code/ai-play/wedding-travel-agency/wta-problem-1.pddl -planner opt-hmax
+> java -jar enhsp-dist/enhsp.jar -o /home/fax/code/ai-play/wedding-travel-agency/wta-domain.pddl -f /home/fax/code/ai-play/wedding-travel-agency/wta-problem-1.pddl -planner sat-hadd
 
 Problem Solved
 
@@ -20,10 +20,10 @@ Found Plan:
 
 Plan-Length:12
 Metric (Search):215.0
-Planning Time (msec): 80
-Heuristic Time (msec): 55
-Search Time (msec): 78
-Expanded Nodes:136
-States Evaluated:676
+Planning Time (msec): 54
+Heuristic Time (msec): 39
+Search Time (msec): 53
+Expanded Nodes:138
+States Evaluated:733
 Number of Dead-Ends detected:15
-Number of Duplicates detected:127
+Number of Duplicates detected:129

@@ -21,16 +21,16 @@ Found Plan:
 13.0: (visit SchlossLinderhof Ettal)
 14.0: (rest KlosterhotelEttal Ettal)
 15.0: (move EttalMunchen Ettal Munchen)
-16.0: (visit SchlossNymphenburg Munchen)
-17.0: (visit MunichResidence Munchen)
+16.0: (visit MunichResidence Munchen)
+17.0: (visit SchlossNymphenburg Munchen)
 18.0: (move RomeMunchen Munchen Rome)
 
 Plan-Length:19
 Metric (Search):852.0
-Planning Time (msec): 2991
-Heuristic Time (msec): 2642
-Search Time (msec): 2989
-Expanded Nodes:59467
-States Evaluated:211131
-Number of Dead-Ends detected:31386
-Number of Duplicates detected:52513
+Planning Time (msec): 3459
+Heuristic Time (msec): 3091
+Search Time (msec): 3458
+Expanded Nodes:62377
+States Evaluated:232061
+Number of Dead-Ends detected:33896
+Number of Duplicates detected:54162
