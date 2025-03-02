@@ -26,7 +26,7 @@
     - train_travel
 
     WurzburgBamberg WurzburgRothenburg BambergRothenburg BambergNurnberg 
-    NurnbergRothenburg NurnbergRegensburg NurnbergMunchen
+    NurnbergRothenburg NurnbergRegensburg RegensburgMunchen NurnbergMunchen
     RothenburgMunchen RothenburgFussen RothenburgLindau
     LindauMunchen LindauFussen LindauBregenz
     BregenzInnsbruck FussenEttal EttalMunchen EttalInnsbruck
@@ -131,6 +131,9 @@
     (connect NurnbergRegensburg Nurnberg Regensburg)
     (= (time_travel NurnbergRegensburg) 79)
     (= (cost_travel NurnbergRegensburg) 8)
+    (connect RegensburgMunchen Regensburg Munchen)
+    (= (time_travel RegensburgMunchen) 75)
+    (= (cost_travel RegensburgMunchen) 8)
     (connect NurnbergMunchen Nurnberg Munchen)
     (= (time_travel NurnbergMunchen) 121)
     (= (cost_travel NurnbergMunchen) 12)
