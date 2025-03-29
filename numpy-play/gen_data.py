@@ -2,7 +2,7 @@ import numpy as np
 
 class SimpleDataset:
     def __init__(self):
-        (self.x_train, self.y_train) = generate()
+        (self.x, self.y) = generate()
 
 def generate() -> tuple[np.ndarray, np.ndarray]:
     # Generates 100 integer numbers in the interval [10 - 200]

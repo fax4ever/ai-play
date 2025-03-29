@@ -3,13 +3,16 @@
 import matplotlib.pyplot as plt
 from gen_data import SimpleDataset
 from linear_regression import LinearRegression
+import numpy as np
 
 def main():
     dataset = SimpleDataset()
-    plt.scatter(dataset.x_train, dataset.y_train)
-    plt.show()
+    plt.scatter(dataset.x, dataset.y)
+    #plt.show()
 
-    li = LinearRegression()
+    lr = LinearRegression(dataset.x, dataset.y)
+    plt.scatter(dataset.x, lr.prediction(dataset.x))
+    #plt.show()
     pass
 
 if __name__ == "__main__":
