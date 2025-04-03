@@ -174,3 +174,6 @@ machine-learning-project/documentation/*.synctex.gz
 *.log
 *.pyg
 *.synctex.gz
+
+### JetBrains ###
+.idea/
