@@ -20,7 +20,7 @@ class SigmoidBCELoss(nn.Module):
             positives = []
         samples = []
         while len(samples) < num_samples:
-            w = torch.multinomial(self.distr, num_samples=1)[0]
+            w = torch.multinomial(self.distribution, num_samples=1)[0]
             if w.item() not in positives:
                 samples.append(w.item())
         return samples

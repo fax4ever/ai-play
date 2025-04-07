@@ -11,4 +11,4 @@ class SkipGram(nn.Module):
 
     def forward(self, input_idx, target_idx):
         input_embeddings = self.embeddings(input_idx)
-        return self.loss_function.forward(input_embeddings, self.output_weights, target_idx)
+        return self.loss_function(input_embeddings, self.output_weights, target_idx)

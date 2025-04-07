@@ -1,5 +1,4 @@
 from torch import nn
-import sigmoid_bce_loss
 
 class SimpleSkipGram(nn.Module):
     def __init__(self, vocabulary_size, embedding_dim) -> None:

@@ -1,8 +1,7 @@
 import collections
-import re
 
 import numpy as np
-import torch
+import torch, nltk
 
 
 def read_data(txt_path):
@@ -16,9 +15,8 @@ def read_data(txt_path):
     return data
 
 
-def tokenize_line(line, pattern='\W'):
-    return [word for word in re.split(pattern, line.lower()) if word]
-
+def tokenize_line(line):
+    return nltk.word_tokenize(line)
 
 class Word2VecDataset(torch.utils.data.IterableDataset):
 
