@@ -15,16 +15,6 @@ class SigmoidBCELoss(nn.Module):
         self.distribution = frequencies.pow(0.75)
         self.distribution /= self.distribution.sum()
 
-    def sample(self, num_samples, positives=None):
-        if positives is None:
-            positives = []
-        samples = []
-        while len(samples) < num_samples:
-            w = torch.multinomial(self.distribution, num_samples=1)[0]
-            if w.item() not in positives:
-                samples.append(w.item())
-        return samples
-
     def forward(self, input_embedding, output_weights, target_index):
         batch_size = input_embedding.size(0)  # the number of embeddings given as input
         device = input_embedding.device
@@ -52,3 +42,13 @@ class SigmoidBCELoss(nn.Module):
         neg_loss = loss_fn(neg_logits, neg_labels)
 
         return pos_loss + neg_loss
+
+    def sample(self, num_samples, positives=None):
+        if positives is None:
+            positives = []
+        samples = []
+        while len(samples) < num_samples:
+            w = torch.multinomial(self.distribution, num_samples=1)[0]
+            if w.item() not in positives:
+                samples.append(w.item())
+        return samples

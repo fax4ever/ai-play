@@ -7,7 +7,7 @@ class SimpleSkipGram(nn.Module):
         self.output_weights = nn.Linear(embedding_dim, vocabulary_size)
         self.loss_function = nn.CrossEntropyLoss()
 
-    def forward(self, input_idx, target_idx=None):
+    def forward(self, input_idx):
         input_embeddings = self.embeddings(input_idx)
         output_logits = self.output_weights(input_embeddings)
         return output_logits
