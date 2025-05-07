@@ -67,6 +67,15 @@ pip install llama-stack-client
 
 ## Conda (alternative)
 
+5. SERVER with conda
+
+```shell
+yes | conda create -n llama python=3.10
+conda activate llama
+pip install llama-stack
+INFERENCE_MODEL=llama3.2:3b llama stack build --template ollama --image-type conda  --image-name llama3-3b-conda --run
+```
+
 5. CLIENT with conda
 
 ```shell
@@ -88,4 +97,15 @@ llama-stack-client models list
 ```
 llama-stack-client inference chat-completion --message "Does Llama stack provide the RoBERTa model?"
 ```
+
+## Try the basic app
+
+With the **Llama client** profile activated:
+```shell
+python3 one_app.py
+```
+
+# Try Together AI
+
+
 
