@@ -177,6 +177,7 @@ machine-learning-project/documentation/*.synctex.gz
 
 ### JetBrains ###
 .idea/
+*.iml
 
 # Data files
 
