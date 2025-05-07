@@ -65,6 +65,16 @@ source client/bin/activate
 pip install llama-stack-client
 ```
 
+## Conda (alternative)
+
+5. CLIENT with conda
+
+```shell
+yes | conda create -n stack-client python=3.10
+conda activate stack-client
+pip install llama-stack-client
+```
+
 ## Llama client
 
 ```
@@ -76,6 +86,6 @@ llama-stack-client models list
 ```
 
 ```
-lama-stack-client inference chat-completion --message "Does Llama stack provide the RoBERTa model?"
+llama-stack-client inference chat-completion --message "Does Llama stack provide the RoBERTa model?"
 ```
 
