@@ -1,7 +1,6 @@
 import uuid
 
-from llama_stack_client import LlamaStackClient, Agent, AgentEventLogger
-from llama_stack_client.types import Document
+from llama_stack_client import LlamaStackClient, Agent, AgentEventLogger, RAGDocument
 from rich.pretty import pprint
 
 
@@ -58,7 +57,7 @@ def main():
         "lora_finetune.rst",
     ]
     documents = [
-        Document(
+        RAGDocument(
             document_id=f"num-{i}",
             content=f"https://raw.githubusercontent.com/pytorch/torchtune/main/docs/source/tutorials/{url}",
             mime_type="text/plain",

@@ -76,7 +76,7 @@ pip install llama-stack
 INFERENCE_MODEL=llama3.2:3b llama stack build --template ollama --image-type conda  --image-name llama3-3b-conda --run
 ```
 
-5. CLIENT with conda
+6. CLIENT with conda
 
 ```shell
 yes | conda create -n stack-client python=3.10
@@ -105,7 +105,10 @@ With the **Llama client** profile activated:
 python3 one_app.py
 ```
 
-# Try Together AI
+# Extra
 
+## Conda get envs
 
-
+```shell
+conda info --envs
+```
