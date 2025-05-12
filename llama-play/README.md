@@ -79,6 +79,7 @@ pip install llama-stack-client
 yes | conda create -n llama python=3.10
 conda activate llama
 pip install llama-stack
+pip install e2b-code-interpreter # for [agent_tools.py](agent_tools.py)
 INFERENCE_MODEL=llama3.2:3b llama stack build --template ollama --image-type conda  --image-name llama3-3b-conda --run
 ```
 
