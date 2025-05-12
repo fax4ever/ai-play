@@ -1,21 +1,7 @@
-# reinforcement-learning-play
+# AI Playground container project
 
-## neural_networks
-
-> python net1.py
-
-> python net2.py
-
-> python net3.py
-
-## qlearning
-
-> python qt-1.py
-
-# machine-learning-project
-
-> python qlearn-app.py
-
-> python dqn-app.py
-
-> python qlearn-view.py
+1. [Playing a bit with Llama stack](llama-play)
+2. [ML / Reinforcement Learning project](machine-learning-project)
+3. [Simple linear regression](numpy-play)
+4. [PDDL symbolic AI project](wedding-travel-agency)
+5. [Word2Vect SkipGram example](word2vect)
