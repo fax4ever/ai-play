@@ -78,9 +78,8 @@ pip install llama-stack-client
 ```shell
 yes | conda create -n llama python=3.10
 conda activate llama
-pip install llama-stack
+INFERENCE_MODEL=llama3.2:3b llama stack build --template ollama --image-type conda --run
 pip install e2b-code-interpreter # for [agent_tools.py](agent_tools.py)
-INFERENCE_MODEL=llama3.2:3b llama stack build --template ollama --image-type conda  --image-name llama3-3b-conda --run
 ```
 
 6. CLIENT with conda
@@ -122,4 +121,36 @@ conda info --envs
 
 ```shell
 conda remove -n llama-play --all
+```
+
+## Download more model for OLlama
+
+To download more Meta model, visit the page:
+https://www.llama.com/llama-downloads/
+
+0. Activate the server env
+```shell
+conda activate llama-server
+```
+
+1. Download and run the safe model:
+```shell
+export INFERENCE_MODEL=llama3.2:3b
+export SAFETY_MODEL="meta-llama/Llama-Guard-3-1B"
+export OLLAMA_SAFETY_MODEL="llama-guard3:1b"
+ollama run $OLLAMA_SAFETY_MODEL --keepalive 60m
+```
+
+3. Build the Llama Stack configuration
+```shell
+llama stack build --template ollama --image-type conda
+```
+
+4. Run the Llama Stack configuration
+```shell
+llama stack run ~/.local/lib/python3.13/site-packages/llama_stack/templates/ollama/run-with-safety.yaml \
+  --port $LLAMA_STACK_PORT \
+  --env INFERENCE_MODEL=$INFERENCE_MODEL \
+  --env SAFETY_MODEL=$SAFETY_MODEL \
+  --env OLLAMA_URL=http://localhost:11434
 ```
