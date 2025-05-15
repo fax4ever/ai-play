@@ -123,7 +123,7 @@ conda info --envs
 conda remove -n llama-play --all
 ```
 
-## Download more model for OLlama
+## Run Safe Model from Ollama
 
 To download more Meta model, visit the page:
 https://www.llama.com/llama-downloads/
