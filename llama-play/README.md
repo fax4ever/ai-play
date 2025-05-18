@@ -1,16 +1,70 @@
 # Llama Play
 
-Taken from https://llama-stack.readthedocs.io/
+Copied, adapted from https://llama-stack.readthedocs.io/ and extend it...
+
+1. Activate the Ollama service
+
+```shell
+sudo systemctl start ollama.service
+```
+
+2. Check if the service is active
+
+```shell
+sudo systemctl status ollama.service
+```
+
+3. Run Llama stack with a Container
+
+Prepare the environment:
+
+```shell
+export INFERENCE_MODEL="llama3.2:3b"
+export LLAMA_STACK_PORT=8321
+mkdir -p ~/code/lab/.llama
+```
+
+Run it:
+
+```shell
+docker run -it \
+  --pull always \
+  -p $LLAMA_STACK_PORT:$LLAMA_STACK_PORT \
+  -v ~/code/lab/.llama:/root/.llama \
+  --network=host \
+  llamastack/distribution-ollama \
+  --port $LLAMA_STACK_PORT \
+  --env INFERENCE_MODEL=$INFERENCE_MODEL \
+  --env OLLAMA_URL=http://localhost:11434
+```  
+
+5. Run the client app
+
+```shell
+conda create -n llama-stack-client python=3.10
+conda activate llama-stack-client
+pip install llama-stack-client
+```
+
+Go to the root of this project `ai-play`
+
+Run the client app:
+
+```shell
+python3 llama-play/one_app.py
+```
+
+# Extra
 
 ## Ollama
 
-1. Install
-
-See https://ollama.com/download
+1. Install Ollama
 
 ```shell
 curl -fsSL https://ollama.com/install.sh | sh
 ```
+
+See https://ollama.com/download
 
 2. Disable services
 
@@ -32,7 +86,17 @@ sudo systemctl start ollama.service
 journalctl -u ollama
 ```
 
-5. Run standalone Ollama
+5. Pull explicitly a new model with Ollama
+
+**Optional**: This is usually done automatically when a model is required.
+
+```shell
+ollama pull llama3.2:3b
+```
+
+6. Run standalone Ollama
+
+this basically without the Llama stack
 
 ```shell
 ollama run llama3.2:3b --keepalive 60m
@@ -71,9 +135,9 @@ source client/bin/activate
 pip install llama-stack-client
 ```
 
-## Conda (alternative)
+## Conda
 
-5. SERVER with conda
+1. SERVER with conda
 
 ```shell
 yes | conda create -n llama python=3.10
@@ -82,7 +146,7 @@ INFERENCE_MODEL=llama3.2:3b llama stack build --template ollama --image-type con
 pip install e2b-code-interpreter # for [agent_tools.py](agent_tools.py)
 ```
 
-6. CLIENT with conda
+2. CLIENT with conda
 
 ```shell
 yes | conda create -n stack-client python=3.10
@@ -90,67 +154,14 @@ conda activate stack-client
 pip install llama-stack-client
 ```
 
-## Llama client
-
-```shell
-llama-stack-client configure --endpoint http://localhost:8321 --api-key none
-```
-
-```shell
-llama-stack-client models list
-```
-
-```shell
-llama-stack-client inference chat-completion --message "Does Llama stack provide the RoBERTa model?"
-```
-
-## Try the basic app
-
-With the **Llama client** profile activated:
-```shell
-python3 one_app.py
-```
-
-# Extra
-
-## Conda get envs
+3. Conda get envs
 
 ```shell
 conda info --envs
 ```
 
+4. Conda delete evn
+
 ```shell
 conda remove -n llama-play --all
-```
-
-## Run Safe Model from Ollama
-
-To download more Meta model, visit the page:
-https://www.llama.com/llama-downloads/
-
-0. Activate the server env
-```shell
-conda activate llama-server
-```
-
-1. Download and run the safe model:
-```shell
-export INFERENCE_MODEL=llama3.2:3b
-export SAFETY_MODEL="meta-llama/Llama-Guard-3-1B"
-export OLLAMA_SAFETY_MODEL="llama-guard3:1b"
-ollama run $OLLAMA_SAFETY_MODEL --keepalive 60m
-```
-
-3. Build the Llama Stack configuration
-```shell
-llama stack build --template ollama --image-type conda
-```
-
-4. Run the Llama Stack configuration
-```shell
-llama stack run ~/.local/lib/python3.13/site-packages/llama_stack/templates/ollama/run-with-safety.yaml \
-  --port $LLAMA_STACK_PORT \
-  --env INFERENCE_MODEL=$INFERENCE_MODEL \
-  --env SAFETY_MODEL=$SAFETY_MODEL \
-  --env OLLAMA_URL=http://localhost:11434
 ```
