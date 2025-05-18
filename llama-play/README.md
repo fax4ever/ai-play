@@ -49,7 +49,7 @@ docker run -it \
 
 > **_NOTE:_** the `--network=host` allows to make `localhost` reachable from the guest container.
 
-> **IMPORTANT_** with Podman we need to add `:z` to the mounting point of the `.llama` director
+> **IMPORTANT:_** with Podman we need to add `:z` to the mounting point of the `.llama` director
 
 ```shell
 podman run -it \
@@ -137,11 +137,18 @@ journalctl -u ollama
 
 5. Pull explicitly a new model with Ollama
 
-**Optional**: This is usually done automatically when a model is required.
+Import a model to avoid error like:
+
+```shell
+ValueError: Model 'llama3.2:3b' is not available in Ollama. Available models: llama3.2:latest, llama3.2:3b-instruct-fp16
+```
 
 ```shell
 ollama pull llama3.2:3b
 ```
+
+> **_NOTE:_** if you've imported a model for Ollama run as a service, 
+you need to that again if you need to use the same model for with the `ollama serve` manual run!
 
 6. Run standalone Ollama
 
