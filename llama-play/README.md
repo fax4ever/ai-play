@@ -2,16 +2,25 @@
 
 Copied, adapted from https://llama-stack.readthedocs.io/ and extend it...
 
-1. Activate the Ollama service
+0. Configure Ollama to accept any binding address (such as `host.docker.internal`)
+
+By default, I think that the binding host is `localhost:11434`.
+If you run Ollama as a service, add `Environment="OLLAMA_HOST=0.0.0.0"` to the `/etc/systemd/system/ollama.service`.
+
+1. Run Ollama service
 
 ```shell
 sudo systemctl start ollama.service
 ```
 
-2. Check if the service is active
-
 ```shell
 sudo systemctl status ollama.service
+```
+
+2. Alternatively, manually run the `ollama serve` command:
+
+```shell
+OLLAMA_HOST=0.0.0.0 ollama serve
 ```
 
 3. Run Llama stack with a Container
@@ -24,7 +33,7 @@ export LLAMA_STACK_PORT=8321
 mkdir -p ~/code/lab/.llama
 ```
 
-Run it:
+With Docker, the command is taken from the Llama documentation.
 
 ```shell
 docker run -it \
@@ -37,6 +46,38 @@ docker run -it \
   --env INFERENCE_MODEL=$INFERENCE_MODEL \
   --env OLLAMA_URL=http://localhost:11434
 ```  
+
+> **_NOTE:_** the `--network=host` allows to make `localhost` reachable from the guest container.
+
+> **IMPORTANT_** with Podman we need to add `:z` to the mounting point of the `.llama` director
+
+```shell
+podman run -it \
+  --pull always \
+  -p $LLAMA_STACK_PORT:$LLAMA_STACK_PORT \
+  -v ~/code/lab/.llama:/root/.llama:z \
+  --network=host \
+  llamastack/distribution-ollama \
+  --port $LLAMA_STACK_PORT \
+  --env INFERENCE_MODEL=$INFERENCE_MODEL \
+  --env OLLAMA_URL=http://localhost:11434
+```
+
+> **_NOTE:_** to use `--env OLLAMA_URL=http://host.docker.internal:11434` instead of `--network=host` and `localhost`, 
+but the Ollama service must have `0.0.0.0` as binding address and not `localhost` as biding address.
+
+If Ollama service has `0.0.0.0` as binding address we can run:
+
+```shell
+podman run -it \
+  --pull always \
+  -p $LLAMA_STACK_PORT:$LLAMA_STACK_PORT \
+  -v ~/.llama:/root/.llama:z \
+  llamastack/distribution-ollama \
+  --port $LLAMA_STACK_PORT \
+  --env INFERENCE_MODEL=$INFERENCE_MODEL \
+  --env OLLAMA_URL=http://host.docker.internal:11434
+```
 
 5. Run the client app
 
@@ -65,6 +106,14 @@ curl -fsSL https://ollama.com/install.sh | sh
 ```
 
 See https://ollama.com/download
+
+Also add the env entry:
+
+```shell
+Environment="OLLAMA_HOST=0.0.0.0"
+```
+
+to the service file `/etc/systemd/system/ollama.service`.
 
 2. Disable services
 
