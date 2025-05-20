@@ -8,10 +8,10 @@ import torch
 
 
 def f(x):
-    return x**2 + 2*x + 1 # differentiable function
+    return x**2 + 2*x + 1  # differentiable function
 
 
-def autogradient_example():
+def autograd_example():
     # enables automatic differentiation
     # used for parameters:
     x = torch.tensor(2.0, requires_grad=True)
@@ -32,7 +32,6 @@ def autogradient_example():
 
 def grad_no_grad():
     x = torch.ones(5)  # input tensor
-    y = torch.zeros(3)  # expected output
     w = torch.randn(5, 3, requires_grad=True)
     b = torch.randn(3, requires_grad=True)
 
@@ -48,9 +47,20 @@ def grad_no_grad():
     print(z_det.requires_grad)
 
 
+def inline_operations():
+    x = torch.tensor([2.0, 3.0, 4.0], requires_grad=True)
+    y  = (x * 2).sum()
+    print('gradient is maintained:', y.requires_grad)
+    z = 3*y
+    z.backward()
+    print(x.grad)
+    print(y.grad)
+
+
 def main():
-    autogradient_example()
+    autograd_example()
     grad_no_grad()
+    inline_operations()
 
 
 if __name__ == "__main__":
