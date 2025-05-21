@@ -25,8 +25,8 @@ class OneLayerNetwork(nn.Module):
 
 
 def train(dataloader, model, loss_fn, optimizer):
-    size = len(dataloader.dataset)
     model.train()
+    loss = None
     for batch, (X, y) in enumerate(dataloader):
         X, y = X.to(DEVICE), y.to(DEVICE)
 
@@ -38,10 +38,7 @@ def train(dataloader, model, loss_fn, optimizer):
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-        if batch % 100 == 0:
-            loss, current = loss.item(), batch * len(X)
-            print(f"loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
-        return loss
+    return loss
 
 
 def main():
@@ -52,7 +49,7 @@ def main():
 
     model = OneLayerNetwork().to(DEVICE)
     loss_fn = nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.02)
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
 
     epochs = 10
     losses = []
@@ -60,7 +57,8 @@ def main():
     for t in range(epochs):
         print(f"Epoch {t+1}\n-------------------------------")
         loss = train(train_loader, model, loss_fn, optimizer)
-        losses.append(loss)  # Assuming train function returns loss value
+        print(f"Loss {loss}\n-------------------------------")
+        losses.append(loss.detach().cpu().numpy())  # Assuming train function returns loss value
 
     print("Done!")
 
