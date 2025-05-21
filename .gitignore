@@ -183,3 +183,5 @@ machine-learning-project/documentation/*.synctex.gz
 
 wiki.10K.txt
 output_folder/
+/MNIST/
+/pytorch-play/MNIST/
