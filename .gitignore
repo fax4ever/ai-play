@@ -185,3 +185,4 @@ wiki.10K.txt
 output_folder/
 /MNIST/
 /pytorch-play/MNIST/
+/pytorch-play/lightning_logs
