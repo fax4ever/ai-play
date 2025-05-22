@@ -186,3 +186,6 @@ output_folder/
 /MNIST/
 /pytorch-play/MNIST/
 /pytorch-play/lightning_logs
+/pytorch-play/cifar-10-python.tar.gz
+/pytorch-play/data
+/pytorch-play/cifar-10-batches-py
