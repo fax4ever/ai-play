@@ -10,3 +10,7 @@ feast apply
 ```shell
 python main_app.py
 ```
+
+```shell
+feast teardown
+```
