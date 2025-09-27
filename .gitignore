@@ -189,3 +189,5 @@ output_folder/
 /pytorch-play/cifar-10-python.tar.gz
 /pytorch-play/data
 /pytorch-play/cifar-10-batches-py
+
+.DS_Store
