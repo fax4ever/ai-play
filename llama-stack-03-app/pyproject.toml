@@ -1,0 +1,9 @@
+[project]
+name = "llama-stack-03-app"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "llama-stack-client==0.3.4",
+]
