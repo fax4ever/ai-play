@@ -1,0 +1,27 @@
+# Minimal state machine config for testing
+settings:
+  initial_state: greet
+  terminal_state: end
+
+state_schema:
+  business_fields:
+    user_name:
+      type: string
+      default: null
+
+states:
+  greet:
+    type: waiting
+    transitions:
+      user_input: process_input
+
+  process_input:
+    type: llm_processor
+    prompt: "User said: {last_user_message}. Reply briefly."
+    temperature: 0.7
+    uses_tools: no
+    transitions:
+      success: greet
+
+  end:
+    type: terminal

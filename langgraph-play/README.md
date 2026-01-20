@@ -4,13 +4,15 @@
 
 > uv sync
 
+> uv run pytest
+
 ## How I setup this uv environemt
 
 > uv init --package langgraph-play 
 
 + [cd langg-play]
 > uv add langgraph
-
+> uv add pyyaml
 > uv add --dev pytest
 
 ``` bash
