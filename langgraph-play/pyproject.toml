@@ -1,0 +1,24 @@
+[project]
+name = "langgraph-play"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Fabio Massimo Ercoli", email = "fabiomassimo.ercoli@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "langgraph>=1.0.6",
+]
+
+[project.scripts]
+langgraph-play = "langgraph_play:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+]
