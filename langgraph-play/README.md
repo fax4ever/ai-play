@@ -6,6 +6,8 @@
 
 > uv run pytest
 
+> uv run script/run_graph.py
+
 ## How I setup this uv environemt
 
 > uv init --package langgraph-play 
