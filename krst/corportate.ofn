@@ -1,0 +1,577 @@
+Prefix(:=<http://www.semanticweb.org/fax/ontologies/2026/corporate/>)
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+
+
+Ontology(<http://www.semanticweb.org/fax/ontologies/2026/corporate>
+<http://www.semanticweb.org/fax/ontologies/2026/corporate/1.0.0>
+
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#ActiveProject>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Building>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CEO>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CFO>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CTO>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#ChiefExecutiveOfficer>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CompanySize>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CompletedProject>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Contractor>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Department>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Executive>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#ExperiencedEmployee>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#FinanceDepartment>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#FullTimeEmployee>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#HRDepartment>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Intern>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#JuniorManager>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#LargeTeam>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#ManagementSkill>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Manager>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#NonManager>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Office>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#PartTimeEmployee>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Person>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Project>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#ProjectLead>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#SalesDepartment>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#SeniorManager>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Skill>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#SmallTeam>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Team>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#TeamMember>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#TechnicalDepartment>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#TechnicalSkill>))
+Declaration(Class(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Worker>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#ancestor>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#assignedTo>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#collaboratesWith>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#colleagueOf>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#directlySupervises>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasCEO>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasMember>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasOffice>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasSkill>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#indirectlyManages>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#knows>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#leadsProject>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#locatedIn>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#managedBy>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#manages>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#mentors>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#partOf>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#reportsTo>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#subordinate>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervisedBy>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#worksIn>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#worksOn>))
+Declaration(DataProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#departmentCode>))
+Declaration(DataProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#endDate>))
+Declaration(DataProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasAge>))
+Declaration(DataProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmail>))
+Declaration(DataProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmployeeID>))
+Declaration(DataProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasName>))
+Declaration(DataProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasPhoneNumber>))
+Declaration(DataProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasSalary>))
+Declaration(DataProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasYearsOfExperience>))
+Declaration(DataProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#officeNumber>))
+Declaration(DataProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#projectBudget>))
+Declaration(DataProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#startDate>))
+Declaration(DataProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#teamSize>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CharlieBrown>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#DevTeam>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#DianaTaylor>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#EveWhite>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#FrankMiller>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#GraceKing>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#HRDepartment_Ind>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#ITDepartment>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#LargeCompany>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#MainBuilding>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#MediumCompany>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Office101>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#ProjectAlpha>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#ProjectBeta>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#SalesDepartment_Ind>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/fax/ontologies/2026/corporate#SmallCompany>))
+############################
+#   Object Properties
+############################
+
+# Object Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#ancestor> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#ancestor>)
+
+TransitiveObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#ancestor>)
+
+# Object Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#collaboratesWith> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#collaboratesWith>)
+
+EquivalentObjectProperties(<http://www.semanticweb.org/fax/ontologies/2026/corporate#collaboratesWith> <http://www.semanticweb.org/fax/ontologies/2026/corporate#colleagueOf>)
+SymmetricObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#collaboratesWith>)
+
+# Object Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#colleagueOf> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#colleagueOf>)
+
+SymmetricObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#colleagueOf>)
+DisjointObjectProperties(<http://www.semanticweb.org/fax/ontologies/2026/corporate#colleagueOf> <http://www.semanticweb.org/fax/ontologies/2026/corporate#mentors>)
+DisjointObjectProperties(<http://www.semanticweb.org/fax/ontologies/2026/corporate#colleagueOf> <http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises>)
+
+# Object Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#directlySupervises> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#directlySupervises>)
+
+SubObjectPropertyOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#directlySupervises> <http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises>)
+
+# Object Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasCEO> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasCEO>)
+
+FunctionalObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasCEO>)
+
+# Object Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasMember> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasMember>)
+
+InverseObjectProperties(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasMember> <http://www.semanticweb.org/fax/ontologies/2026/corporate#worksIn>)
+
+# Object Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasOffice> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasOffice>)
+
+ObjectPropertyRange(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasOffice> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Office>)
+
+# Object Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#knows> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#knows>)
+
+ReflexiveObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#knows>)
+
+# Object Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#leadsProject> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#leadsProject>)
+
+ObjectPropertyDomain(<http://www.semanticweb.org/fax/ontologies/2026/corporate#leadsProject> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Manager>)
+
+# Object Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#managedBy> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#managedBy>)
+
+InverseObjectProperties(<http://www.semanticweb.org/fax/ontologies/2026/corporate#managedBy> <http://www.semanticweb.org/fax/ontologies/2026/corporate#manages>)
+DisjointObjectProperties(<http://www.semanticweb.org/fax/ontologies/2026/corporate#managedBy> <http://www.semanticweb.org/fax/ontologies/2026/corporate#manages>)
+
+# Object Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#manages> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#manages>)
+
+SubObjectPropertyOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#manages> <http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises>)
+AsymmetricObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#manages>)
+ObjectPropertyDomain(<http://www.semanticweb.org/fax/ontologies/2026/corporate#manages> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Manager>)
+ObjectPropertyRange(<http://www.semanticweb.org/fax/ontologies/2026/corporate#manages> ObjectUnionOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Department> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Project> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Team>))
+
+# Object Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#mentors> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#mentors>)
+
+DisjointObjectProperties(<http://www.semanticweb.org/fax/ontologies/2026/corporate#mentors> <http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises>)
+
+# Object Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#partOf> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#partOf>)
+
+TransitiveObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#partOf>)
+
+# Object Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#reportsTo> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#reportsTo>)
+
+FunctionalObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#reportsTo>)
+IrreflexiveObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#reportsTo>)
+
+# Object Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#subordinate> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#subordinate>)
+
+SubObjectPropertyOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#subordinate> <http://www.semanticweb.org/fax/ontologies/2026/corporate#reportsTo>)
+
+# Object Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#supervisedBy> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervisedBy>)
+
+InverseObjectProperties(<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervisedBy> <http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises>)
+DisjointObjectProperties(<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervisedBy> <http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises>)
+
+# Object Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises>)
+
+InverseFunctionalObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises>)
+AsymmetricObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises>)
+TransitiveObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises>)
+IrreflexiveObjectProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises>)
+ObjectPropertyDomain(<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Manager>)
+ObjectPropertyRange(<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee>)
+
+# Object Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#worksIn> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#worksIn>)
+
+ObjectPropertyDomain(<http://www.semanticweb.org/fax/ontologies/2026/corporate#worksIn> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Person>)
+ObjectPropertyRange(<http://www.semanticweb.org/fax/ontologies/2026/corporate#worksIn> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Department>)
+
+
+############################
+#   Data Properties
+############################
+
+# Data Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#departmentCode> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#departmentCode>)
+
+DataPropertyDomain(<http://www.semanticweb.org/fax/ontologies/2026/corporate#departmentCode> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Department>)
+
+# Data Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#endDate> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#endDate>)
+
+DisjointDataProperties(<http://www.semanticweb.org/fax/ontologies/2026/corporate#endDate> <http://www.semanticweb.org/fax/ontologies/2026/corporate#startDate>)
+
+# Data Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasAge> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasAge>)
+
+DataPropertyDomain(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasAge> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Person>)
+DataPropertyRange(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasAge> xsd:nonNegativeInteger)
+DisjointDataProperties(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasAge> <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasName>)
+DisjointDataProperties(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasAge> <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasSalary>)
+
+# Data Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmail> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmail>)
+
+SubDataPropertyOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmail> <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasName>)
+DataPropertyRange(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmail> xsd:string)
+
+# Data Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmployeeID> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmployeeID>)
+
+EquivalentDataProperties(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmployeeID> <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasName>)
+FunctionalDataProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmployeeID>)
+DataPropertyDomain(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmployeeID> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee>)
+DataPropertyRange(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmployeeID> xsd:string)
+
+# Data Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasName> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasName>)
+
+FunctionalDataProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasName>)
+DataPropertyRange(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasName> xsd:string)
+DisjointDataProperties(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasName> <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasSalary>)
+
+# Data Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasSalary> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasSalary>)
+
+FunctionalDataProperty(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasSalary>)
+DataPropertyDomain(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasSalary> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee>)
+DataPropertyRange(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasSalary> xsd:positiveInteger)
+
+# Data Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasYearsOfExperience> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasYearsOfExperience>)
+
+DataPropertyRange(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasYearsOfExperience> xsd:nonNegativeInteger)
+
+# Data Property: <http://www.semanticweb.org/fax/ontologies/2026/corporate#projectBudget> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#projectBudget>)
+
+DataPropertyDomain(<http://www.semanticweb.org/fax/ontologies/2026/corporate#projectBudget> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Project>)
+
+
+
+############################
+#   Classes
+############################
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#ActiveProject> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#ActiveProject>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#ActiveProject> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Project>)
+DisjointClasses(<http://www.semanticweb.org/fax/ontologies/2026/corporate#ActiveProject> <http://www.semanticweb.org/fax/ontologies/2026/corporate#CompletedProject>)
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#CEO> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#CEO>)
+
+EquivalentClasses(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CEO> <http://www.semanticweb.org/fax/ontologies/2026/corporate#ChiefExecutiveOfficer>)
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CEO> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Executive>)
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#CFO> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#CFO>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CFO> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Executive>)
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#CTO> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#CTO>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CTO> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Executive>)
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#CompanySize> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#CompanySize>)
+
+EquivalentClasses(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CompanySize> ObjectOneOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#LargeCompany> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MediumCompany> <http://www.semanticweb.org/fax/ontologies/2026/corporate#SmallCompany>))
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#CompletedProject> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#CompletedProject>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CompletedProject> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Project>)
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#Contractor> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#Contractor>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Contractor> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Person>)
+DisjointClasses(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Contractor> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee>)
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#Department> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#Department>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Department> DataMinCardinality(1 <http://www.semanticweb.org/fax/ontologies/2026/corporate#departmentCode> xsd:string))
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Person>)
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee> ObjectExactCardinality(1 <http://www.semanticweb.org/fax/ontologies/2026/corporate#supervisedBy> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Manager>))
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee> DataSomeValuesFrom(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasAge> xsd:nonNegativeInteger))
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee> DataSomeValuesFrom(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasSalary> xsd:positiveInteger))
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee> DataAllValuesFrom(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasSalary> xsd:positiveInteger))
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee> DataExactCardinality(1 <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmployeeID> xsd:string))
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee> DataExactCardinality(1 <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasName> xsd:string))
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee> DataMaxCardinality(1 <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmail> xsd:string))
+DisjointUnion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee> <http://www.semanticweb.org/fax/ontologies/2026/corporate#FullTimeEmployee> <http://www.semanticweb.org/fax/ontologies/2026/corporate#PartTimeEmployee>)
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#Executive> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#Executive>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Executive> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Manager>)
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#ExperiencedEmployee> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#ExperiencedEmployee>)
+
+EquivalentClasses(<http://www.semanticweb.org/fax/ontologies/2026/corporate#ExperiencedEmployee> ObjectIntersectionOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee> DataSomeValuesFrom(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasYearsOfExperience> DatatypeRestriction(xsd:integer xsd:minInclusive "5"^^xsd:integer))))
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#FinanceDepartment> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#FinanceDepartment>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#FinanceDepartment> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Department>)
+DisjointClasses(<http://www.semanticweb.org/fax/ontologies/2026/corporate#FinanceDepartment> <http://www.semanticweb.org/fax/ontologies/2026/corporate#HRDepartment>)
+DisjointClasses(<http://www.semanticweb.org/fax/ontologies/2026/corporate#FinanceDepartment> <http://www.semanticweb.org/fax/ontologies/2026/corporate#SalesDepartment>)
+DisjointClasses(<http://www.semanticweb.org/fax/ontologies/2026/corporate#FinanceDepartment> <http://www.semanticweb.org/fax/ontologies/2026/corporate#TechnicalDepartment>)
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#FullTimeEmployee> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#FullTimeEmployee>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#FullTimeEmployee> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee>)
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#HRDepartment> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#HRDepartment>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#HRDepartment> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Department>)
+DisjointClasses(<http://www.semanticweb.org/fax/ontologies/2026/corporate#HRDepartment> <http://www.semanticweb.org/fax/ontologies/2026/corporate#SalesDepartment>)
+DisjointClasses(<http://www.semanticweb.org/fax/ontologies/2026/corporate#HRDepartment> <http://www.semanticweb.org/fax/ontologies/2026/corporate#TechnicalDepartment>)
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#Intern> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#Intern>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Intern> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Person>)
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Intern> ObjectMaxCardinality(0 <http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises>))
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Intern> DataHasValue(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasSalary> "30000"^^xsd:integer))
+DisjointClasses(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Intern> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Manager>)
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#JuniorManager> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#JuniorManager>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#JuniorManager> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Manager>)
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#JuniorManager> ObjectMaxCardinality(5 <http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee>))
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#LargeTeam> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#LargeTeam>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#LargeTeam> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Team>)
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#LargeTeam> ObjectMinCardinality(10 <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasMember> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Person>))
+DisjointClasses(<http://www.semanticweb.org/fax/ontologies/2026/corporate#LargeTeam> <http://www.semanticweb.org/fax/ontologies/2026/corporate#SmallTeam>)
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#ManagementSkill> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#ManagementSkill>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#ManagementSkill> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Skill>)
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#Manager> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#Manager>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Manager> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee>)
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Manager> ObjectSomeValuesFrom(<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee>))
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Manager> ObjectMinCardinality(1 <http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee>))
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#NonManager> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#NonManager>)
+
+EquivalentClasses(<http://www.semanticweb.org/fax/ontologies/2026/corporate#NonManager> ObjectComplementOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Manager>))
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#PartTimeEmployee> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#PartTimeEmployee>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#PartTimeEmployee> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee>)
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#Person> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#Person>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Person> ObjectHasSelf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#knows>))
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Person> DataExactCardinality(1 <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasAge> xsd:integer))
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Person> DataMaxCardinality(2 <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasPhoneNumber> xsd:string))
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#Project> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#Project>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Project> DataMinCardinality(1 <http://www.semanticweb.org/fax/ontologies/2026/corporate#projectBudget> xsd:integer))
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#ProjectLead> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#ProjectLead>)
+
+EquivalentClasses(<http://www.semanticweb.org/fax/ontologies/2026/corporate#ProjectLead> ObjectIntersectionOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee> ObjectAllValuesFrom(<http://www.semanticweb.org/fax/ontologies/2026/corporate#manages> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Project>)))
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#SalesDepartment> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#SalesDepartment>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#SalesDepartment> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Department>)
+DisjointClasses(<http://www.semanticweb.org/fax/ontologies/2026/corporate#SalesDepartment> <http://www.semanticweb.org/fax/ontologies/2026/corporate#TechnicalDepartment>)
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#SeniorManager> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#SeniorManager>)
+
+EquivalentClasses(<http://www.semanticweb.org/fax/ontologies/2026/corporate#SeniorManager> ObjectIntersectionOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Manager> DataSomeValuesFrom(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasYearsOfExperience> DatatypeRestriction(xsd:integer xsd:minInclusive "10"^^xsd:integer))))
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#SeniorManager> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Manager>)
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#SeniorManager> ObjectMinCardinality(5 <http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee>))
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#SmallTeam> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#SmallTeam>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#SmallTeam> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Team>)
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#SmallTeam> ObjectExactCardinality(3 <http://www.semanticweb.org/fax/ontologies/2026/corporate#hasMember> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee>))
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#TeamMember> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#TeamMember>)
+
+EquivalentClasses(<http://www.semanticweb.org/fax/ontologies/2026/corporate#TeamMember> ObjectIntersectionOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Person> ObjectSomeValuesFrom(<http://www.semanticweb.org/fax/ontologies/2026/corporate#worksOn> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Project>)))
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#TechnicalDepartment> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#TechnicalDepartment>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#TechnicalDepartment> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Department>)
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#TechnicalSkill> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#TechnicalSkill>)
+
+SubClassOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#TechnicalSkill> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Skill>)
+
+# Class: <http://www.semanticweb.org/fax/ontologies/2026/corporate#Worker> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#Worker>)
+
+EquivalentClasses(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Worker> ObjectUnionOf(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Contractor> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee>))
+
+
+############################
+#   Named Individuals
+############################
+
+# Individual: <http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen>)
+
+ClassAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee> <http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#worksIn> <http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen> <http://www.semanticweb.org/fax/ontologies/2026/corporate#ITDepartment>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#worksOn> <http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen> <http://www.semanticweb.org/fax/ontologies/2026/corporate#ProjectAlpha>)
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasAge> <http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen> "26"^^xsd:integer)
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmployeeID> <http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen> "E004")
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasName> <http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen> "Alice Green")
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasSalary> <http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen> "72000"^^xsd:integer)
+
+# Individual: <http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson>)
+
+ClassAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee> <http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#colleagueOf> <http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson> <http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#worksIn> <http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson> <http://www.semanticweb.org/fax/ontologies/2026/corporate#ITDepartment>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#worksOn> <http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson> <http://www.semanticweb.org/fax/ontologies/2026/corporate#ProjectAlpha>)
+NegativeObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises> <http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson> <http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith>)
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasAge> <http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson> "29"^^xsd:integer)
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmployeeID> <http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson> "E003")
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasName> <http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson> "Bob Wilson")
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasYearsOfExperience> <http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson> "5"^^xsd:integer)
+NegativeDataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasAge> <http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson> "30"^^xsd:integer)
+
+# Individual: <http://www.semanticweb.org/fax/ontologies/2026/corporate#CharlieBrown> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#CharlieBrown>)
+
+ClassAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Intern> <http://www.semanticweb.org/fax/ontologies/2026/corporate#CharlieBrown>)
+NegativeObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises> <http://www.semanticweb.org/fax/ontologies/2026/corporate#CharlieBrown> <http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen>)
+NegativeObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises> <http://www.semanticweb.org/fax/ontologies/2026/corporate#CharlieBrown> <http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson>)
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasAge> <http://www.semanticweb.org/fax/ontologies/2026/corporate#CharlieBrown> "22"^^xsd:integer)
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmployeeID> <http://www.semanticweb.org/fax/ontologies/2026/corporate#CharlieBrown> "I001")
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasSalary> <http://www.semanticweb.org/fax/ontologies/2026/corporate#CharlieBrown> "30000"^^xsd:integer)
+NegativeDataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasSalary> <http://www.semanticweb.org/fax/ontologies/2026/corporate#CharlieBrown> "100000"^^xsd:integer)
+
+# Individual: <http://www.semanticweb.org/fax/ontologies/2026/corporate#DevTeam> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#DevTeam>)
+
+ClassAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#SmallTeam> <http://www.semanticweb.org/fax/ontologies/2026/corporate#DevTeam>)
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#teamSize> <http://www.semanticweb.org/fax/ontologies/2026/corporate#DevTeam> "3"^^xsd:integer)
+
+# Individual: <http://www.semanticweb.org/fax/ontologies/2026/corporate#DianaTaylor> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#DianaTaylor>)
+
+ClassAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#SeniorManager> <http://www.semanticweb.org/fax/ontologies/2026/corporate#DianaTaylor>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#mentors> <http://www.semanticweb.org/fax/ontologies/2026/corporate#DianaTaylor> <http://www.semanticweb.org/fax/ontologies/2026/corporate#CharlieBrown>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises> <http://www.semanticweb.org/fax/ontologies/2026/corporate#DianaTaylor> <http://www.semanticweb.org/fax/ontologies/2026/corporate#EveWhite>)
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmployeeID> <http://www.semanticweb.org/fax/ontologies/2026/corporate#DianaTaylor> "E005")
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasYearsOfExperience> <http://www.semanticweb.org/fax/ontologies/2026/corporate#DianaTaylor> "15"^^xsd:integer)
+
+# Individual: <http://www.semanticweb.org/fax/ontologies/2026/corporate#EveWhite> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#EveWhite>)
+
+ClassAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee> <http://www.semanticweb.org/fax/ontologies/2026/corporate#EveWhite>)
+
+# Individual: <http://www.semanticweb.org/fax/ontologies/2026/corporate#FrankMiller> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#FrankMiller>)
+
+ClassAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Manager> <http://www.semanticweb.org/fax/ontologies/2026/corporate#FrankMiller>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#leadsProject> <http://www.semanticweb.org/fax/ontologies/2026/corporate#FrankMiller> <http://www.semanticweb.org/fax/ontologies/2026/corporate#ProjectAlpha>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#manages> <http://www.semanticweb.org/fax/ontologies/2026/corporate#FrankMiller> <http://www.semanticweb.org/fax/ontologies/2026/corporate#ProjectAlpha>)
+
+# Individual: <http://www.semanticweb.org/fax/ontologies/2026/corporate#GraceKing> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#GraceKing>)
+
+ClassAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Executive> <http://www.semanticweb.org/fax/ontologies/2026/corporate#GraceKing>)
+
+# Individual: <http://www.semanticweb.org/fax/ontologies/2026/corporate#HRDepartment_Ind> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#HRDepartment_Ind>)
+
+ClassAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#HRDepartment> <http://www.semanticweb.org/fax/ontologies/2026/corporate#HRDepartment_Ind>)
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#departmentCode> <http://www.semanticweb.org/fax/ontologies/2026/corporate#HRDepartment_Ind> "HR-001")
+
+# Individual: <http://www.semanticweb.org/fax/ontologies/2026/corporate#ITDepartment> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#ITDepartment>)
+
+ClassAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#TechnicalDepartment> <http://www.semanticweb.org/fax/ontologies/2026/corporate#ITDepartment>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasCEO> <http://www.semanticweb.org/fax/ontologies/2026/corporate#ITDepartment> <http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#locatedIn> <http://www.semanticweb.org/fax/ontologies/2026/corporate#ITDepartment> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MainBuilding>)
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#departmentCode> <http://www.semanticweb.org/fax/ontologies/2026/corporate#ITDepartment> "IT-001")
+
+# Individual: <http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith>)
+
+ClassAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CEO> <http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises> <http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson>)
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasAge> <http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith> "52"^^xsd:integer)
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmail> <http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith> "john.smith@company.com")
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasName> <http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith> "John Smith")
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasPhoneNumber> <http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith> "+1-555-0101")
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasSalary> <http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith> "200000"^^xsd:integer)
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasYearsOfExperience> <http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith> "25"^^xsd:integer)
+
+# Individual: <http://www.semanticweb.org/fax/ontologies/2026/corporate#MainBuilding> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#MainBuilding>)
+
+ClassAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Building> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MainBuilding>)
+
+# Individual: <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson>)
+
+ClassAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Manager> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasOffice> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Office101>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#manages> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson> <http://www.semanticweb.org/fax/ontologies/2026/corporate#ITDepartment>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#reportsTo> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson> <http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson> <http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#supervises> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson> <http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson>)
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasAge> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson> "38"^^xsd:integer)
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmail> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson> "mary.johnson@company.com")
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasEmployeeID> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson> "E002")
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasName> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson> "Mary Johnson")
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasPhoneNumber> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson> "+1-555-0102")
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasSalary> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson> "120000"^^xsd:integer)
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#hasYearsOfExperience> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson> "12"^^xsd:integer)
+
+# Individual: <http://www.semanticweb.org/fax/ontologies/2026/corporate#MediumCompany> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#MediumCompany>)
+
+ClassAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CompanySize> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MediumCompany>)
+
+# Individual: <http://www.semanticweb.org/fax/ontologies/2026/corporate#Office101> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#Office101>)
+
+ClassAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#Office> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Office101>)
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#officeNumber> <http://www.semanticweb.org/fax/ontologies/2026/corporate#Office101> "101"^^xsd:integer)
+
+# Individual: <http://www.semanticweb.org/fax/ontologies/2026/corporate#ProjectAlpha> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#ProjectAlpha>)
+
+ClassAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#ActiveProject> <http://www.semanticweb.org/fax/ontologies/2026/corporate#ProjectAlpha>)
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#projectBudget> <http://www.semanticweb.org/fax/ontologies/2026/corporate#ProjectAlpha> "500000"^^xsd:integer)
+
+# Individual: <http://www.semanticweb.org/fax/ontologies/2026/corporate#ProjectBeta> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#ProjectBeta>)
+
+ClassAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CompletedProject> <http://www.semanticweb.org/fax/ontologies/2026/corporate#ProjectBeta>)
+DataPropertyAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#projectBudget> <http://www.semanticweb.org/fax/ontologies/2026/corporate#ProjectBeta> "300000"^^xsd:integer)
+
+# Individual: <http://www.semanticweb.org/fax/ontologies/2026/corporate#SalesDepartment_Ind> (<http://www.semanticweb.org/fax/ontologies/2026/corporate#SalesDepartment_Ind>)
+
+ClassAssertion(<http://www.semanticweb.org/fax/ontologies/2026/corporate#SalesDepartment> <http://www.semanticweb.org/fax/ontologies/2026/corporate#SalesDepartment_Ind>)
+
+
+SubClassOf(ObjectHasValue(<http://www.semanticweb.org/fax/ontologies/2026/corporate#worksIn> <http://www.semanticweb.org/fax/ontologies/2026/corporate#ITDepartment>) <http://www.semanticweb.org/fax/ontologies/2026/corporate#Employee>)
+DisjointClasses(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CEO> <http://www.semanticweb.org/fax/ontologies/2026/corporate#CFO> <http://www.semanticweb.org/fax/ontologies/2026/corporate#CTO>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen> <http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen> <http://www.semanticweb.org/fax/ontologies/2026/corporate#CharlieBrown>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen> <http://www.semanticweb.org/fax/ontologies/2026/corporate#DianaTaylor>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen> <http://www.semanticweb.org/fax/ontologies/2026/corporate#EveWhite>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen> <http://www.semanticweb.org/fax/ontologies/2026/corporate#FrankMiller>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen> <http://www.semanticweb.org/fax/ontologies/2026/corporate#GraceKing>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen> <http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#AliceGreen> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson> <http://www.semanticweb.org/fax/ontologies/2026/corporate#CharlieBrown>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson> <http://www.semanticweb.org/fax/ontologies/2026/corporate#DianaTaylor>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson> <http://www.semanticweb.org/fax/ontologies/2026/corporate#EveWhite>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson> <http://www.semanticweb.org/fax/ontologies/2026/corporate#FrankMiller>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson> <http://www.semanticweb.org/fax/ontologies/2026/corporate#GraceKing>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson> <http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#BobWilson> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CharlieBrown> <http://www.semanticweb.org/fax/ontologies/2026/corporate#DianaTaylor>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CharlieBrown> <http://www.semanticweb.org/fax/ontologies/2026/corporate#EveWhite>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CharlieBrown> <http://www.semanticweb.org/fax/ontologies/2026/corporate#FrankMiller>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CharlieBrown> <http://www.semanticweb.org/fax/ontologies/2026/corporate#GraceKing>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CharlieBrown> <http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#CharlieBrown> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#DianaTaylor> <http://www.semanticweb.org/fax/ontologies/2026/corporate#EveWhite>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#DianaTaylor> <http://www.semanticweb.org/fax/ontologies/2026/corporate#FrankMiller>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#DianaTaylor> <http://www.semanticweb.org/fax/ontologies/2026/corporate#GraceKing>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#DianaTaylor> <http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#DianaTaylor> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#EveWhite> <http://www.semanticweb.org/fax/ontologies/2026/corporate#FrankMiller>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#EveWhite> <http://www.semanticweb.org/fax/ontologies/2026/corporate#GraceKing>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#EveWhite> <http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#EveWhite> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#FrankMiller> <http://www.semanticweb.org/fax/ontologies/2026/corporate#GraceKing>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#FrankMiller> <http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#FrankMiller> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#GraceKing> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson>)
+DifferentIndividuals(<http://www.semanticweb.org/fax/ontologies/2026/corporate#JohnSmith> <http://www.semanticweb.org/fax/ontologies/2026/corporate#MaryJohnson>)
+SubObjectPropertyOf(ObjectPropertyChain(<http://www.semanticweb.org/fax/ontologies/2026/corporate#manages> <http://www.semanticweb.org/fax/ontologies/2026/corporate#partOf>) <http://www.semanticweb.org/fax/ontologies/2026/corporate#indirectlyManages>)
+)
