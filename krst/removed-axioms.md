@@ -20,7 +20,10 @@ ObjectPropertyRange(<supervises> <Employee>)
 
 consistent for instance with the generated object propery assertions:
 
-ObjectPropertyAssertion(<supervises> <MaryJohnson> <AliceGreen>)
+ObjectPropertyAssertion(<supervises> <MaryJohnson> <AliceGreen>).
+
+Those two object propeties `manages` for something and `supervises` for someone,
+are clearly disjointed.
 
 Claude code generated also the following axiom: 
 
