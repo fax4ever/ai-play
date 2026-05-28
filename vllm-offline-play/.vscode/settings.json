@@ -1,0 +1,10 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/.vscode/python-with-openmpi4.sh",
+  "python.envFile": "${workspaceFolder}/.env",
+  "python.terminal.activateEnvironment": true,
+  "terminal.integrated.env.linux": {
+    "PATH": "${env:HOME}/openmpi4/bin:${env:PATH}",
+    "LD_LIBRARY_PATH": "${env:HOME}/openmpi4/lib:/opt/rocm-7.2.2/lib:${env:LD_LIBRARY_PATH}",
+    "OPAL_PREFIX": "${env:HOME}/openmpi4"
+  }
+}
