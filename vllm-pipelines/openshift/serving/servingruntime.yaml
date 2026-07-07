@@ -1,0 +1,33 @@
+apiVersion: serving.kserve.io/v1alpha1
+kind: ServingRuntime
+metadata:
+  name: vllm-fax4ever-runtime
+  namespace: vllm-pipelines
+spec:
+  supportedModelFormats:
+    - name: vLLM
+      autoSelect: true
+  multiModel: false
+  containers:
+    - name: kserve-container
+      image: image-registry.openshift-image-registry.svc:5000/vllm-pipelines/vllm-fax4ever:latest
+      # image ENTRYPOINT is already ["vllm", "serve"]; model path is positional, not --model
+      args:
+        - "/mnt/models"
+        - "--served-model-name={{.Name}}"
+        - "--port=8080"
+        - "--dtype=half"
+        - "--max-model-len=20000"
+        - "--gpu-memory-utilization=0.95"
+      ports:
+        - containerPort: 8080
+          protocol: TCP
+      resources:
+        requests:
+          cpu: "1"
+          memory: 6Gi
+          nvidia.com/gpu: "1"
+        limits:
+          cpu: "4"
+          memory: 16Gi
+          nvidia.com/gpu: "1"

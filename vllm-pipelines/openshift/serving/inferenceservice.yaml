@@ -1,0 +1,12 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: vllm-fax4ever
+  namespace: vllm-pipelines
+spec:
+  predictor:
+    model:
+      runtime: vllm-fax4ever-runtime
+      modelFormat:
+        name: vLLM
+      storageUri: "oci://quay.io/redhat-ai-services/modelcar-catalog:llama-3.2-3b-instruct"
