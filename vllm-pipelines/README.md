@@ -14,8 +14,8 @@ oc label namespace vllm-pipelines opendatahub.io/dashboard=true
 ### 2. Apply the build resources
 
 ```bash
-oc apply -f openshift/build/imagestream.yaml
-oc apply -f openshift/build/buildconfig.yaml
+oc apply -f openshift/image-build/imagestream.yaml
+oc apply -f openshift/image-build/buildconfig.yaml
 ```
 
 ### 3. Trigger a build

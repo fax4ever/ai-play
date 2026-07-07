@@ -1,0 +1,40 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: vllm-fax4ever
+  namespace: vllm-pipelines
+spec:
+  source:
+    type: Git
+    git:
+      uri: https://github.com/fax4ever/vllm.git
+      ref: main
+    contextDir: "."
+    # Override per-build for uncommitted local changes with:
+    #   oc start-build vllm-fax4ever --from-dir=/path/to/local/vllm --follow
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: docker/Dockerfile
+      buildArgs:
+        - name: torch_cuda_arch_list
+          value: "8.9"      # NVIDIA L4 = Ada Lovelace = compute capability 8.9
+        - name: max_jobs
+          value: "10"
+        - name: nvcc_threads
+          value: "2"
+        - name: vllm_target_device
+          value: "cuda"
+  output:
+    to:
+      kind: ImageStreamTag
+      name: "vllm-fax4ever:latest"
+  resources:
+    requests:
+      cpu: "10"
+      memory: "16Gi"
+    limits:
+      cpu: "12"
+      memory: "32Gi"
+  # vLLM's CUDA build (even scoped to one GPU arch) can take well over an hour
+  completionDeadlineSeconds: 14400
