@@ -1,11 +1,12 @@
-# Layers your locally modified Python file(s) + a test file on top of the
-# already-built base image. No compilation, just COPY -- should build in
-# well under a minute.
+# Layers an editable install of your local checkout (source of truth for
+# Python edits) plus pytest on top of the already-built base image. No
+# compilation -- just a COPY, a precompiled-wheel download, and an editable
+# install/metadata build -- so this should still only take a couple of
+# minutes, not the base image's tens of minutes.
 #
-# Source is always fed at build time with:
+# Source is always fed at build time with (see README step 5 for the full
+# --exclude flag, which keeps a local .venv/dist out of the upload):
 #   oc start-build vllm-fax4ever-patched --from-dir=/home/fax/code/vllm --follow
-# (the context is your local vllm checkout, so COPY paths below are relative
-# to its root)
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
@@ -19,13 +20,25 @@ spec:
     dockerStrategy:
       dockerfile: |
         FROM image-registry.openshift-image-registry.svc:5000/vllm-pipelines/vllm-fax4ever:latest
-        # vllm-fax4ever:latest already contains your latest local Python
-        # edits (rebuild it first with step 3's --from-dir option after
-        # changing code). This layer only adds what the runtime image
-        # doesn't ship: pytest and the tests/ directory (not part of the
-        # installed package).
+        WORKDIR /workspace/vllm-src
+        COPY . .
+        # A real editable install -- vLLM's own documented Python-only dev
+        # workflow (see "Set up using Python-only build" in vLLM's install
+        # docs) -- instead of raw-copying files over the wheel-installed
+        # package. `vllm` now genuinely points at this source tree, so pip's
+        # own metadata (RECORD/dist-info) stays consistent, unlike silently
+        # overwriting files underneath an unrelated wheel install.
+        # --no-deps skips re-resolving dependencies the base image already
+        # has installed. --force-reinstall makes the uninstall-old/install-new
+        # reconciliation against the existing wheel-installed vllm explicit,
+        # rather than relying on implicit "installing from a local path always
+        # reinstalls" behavior. Same pinned commit as the main build (step 3)
+        # so the downloaded precompiled wheel matches exactly.
+        RUN --mount=type=cache,target=/opt/uv/cache \
+            VLLM_USE_PRECOMPILED=1 \
+            VLLM_PRECOMPILED_WHEEL_COMMIT=e55cc59e52791fe7620f6808e409edcf68740b6b \
+            uv pip install --system --no-build-isolation --no-deps --force-reinstall --editable .
         RUN pip install pytest
-        COPY tests/kernels/ /tmp/tests/kernels/
   output:
     to:
       kind: ImageStreamTag

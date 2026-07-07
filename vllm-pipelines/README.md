@@ -18,18 +18,12 @@ oc apply -f openshift/image-build/imagestream.yaml
 oc apply -f openshift/image-build/buildconfig.yaml
 ```
 
-### 3. Trigger a build
+### 3. Build the serving image
 
-Option A: build from git main
+Always built from git (committed + pushed to your fork's `main`) — the real, traceable serving artifact. For local edits, see step 5.
 
 ```bash
 oc start-build vllm-fax4ever --follow
-```
-
-Option B: build from local uncommitted changes
-
-```bash
-oc start-build vllm-fax4ever --from-dir=/home/fax/code/vllm --follow
 ```
 
 ### 4. Serve the built image
@@ -51,26 +45,28 @@ Option B: use the OpenShift AI console
 
 Only for pure-Python changes — C++/CUDA (`.cu`/`csrc`) changes are out of scope.
 
-`VLLM_USE_PRECOMPILED=1` (step 3) means rebuilding `vllm-fax4ever` from your local checkout is now fast and already picks up your latest Python edits. So: rebuild that first, then layer on `pytest` + the `tests/` directory (not shipped in the runtime image) and run the test as a one-shot `Job`:
+One-time setup — build the debug image (editable install of your checkout + pytest) and start the debug pod:
 
 ```bash
-# 1. rebuild the base image with your latest local changes
-oc start-build vllm-fax4ever --from-dir=/home/fax/code/vllm --follow
-
-# 2. add pytest + tests/, then run the test
 oc apply -f openshift/debug/imagestream.yaml
 oc apply -f openshift/debug/buildconfig.yaml
-oc start-build vllm-fax4ever-patched --from-dir=/home/fax/code/vllm --follow
+oc start-build vllm-fax4ever-patched --from-dir=/home/fax/code/vllm --follow \
+  --exclude='(^|/)(\.git|\.venv|dist|build|__pycache__|\.mypy_cache)(/|$)'
 
 oc apply -f openshift/debug/deployment.yaml
 oc rollout status deployment/vllm-fax4ever-debug -n vllm-pipelines
+```
 
-# run all kernel tests
-oc exec -n vllm-pipelines deployment/vllm-fax4ever-debug -- python3 -m pytest /tmp/tests/kernels/ -v
+Fast loop — repeat for every edit, no rebuild needed:
 
-# or target a specific test/pattern
-oc exec -n vllm-pipelines deployment/vllm-fax4ever-debug -- python3 -m pytest /tmp/tests/kernels/test_compressor_kv_cache.py -v
+```bash
+POD=$(oc get pod -n vllm-pipelines -l app=vllm-fax4ever-debug -o jsonpath='{.items[0].metadata.name}')
 
+oc rsync --no-perms /home/fax/code/vllm/vllm/ vllm-pipelines/$POD:/workspace/vllm-src/vllm/
+oc exec -n vllm-pipelines $POD -- python3 -m pytest /workspace/vllm-src/tests/kernels/ -v
+```
+
+```bash
 # free the GPU when you're done for now (without deleting anything)
 oc scale deployment/vllm-fax4ever-debug -n vllm-pipelines --replicas=0
 ```

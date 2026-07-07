@@ -10,8 +10,9 @@ spec:
       uri: https://github.com/fax4ever/vllm.git
       ref: main
     contextDir: "."
-    # Override per-build for uncommitted local changes with:
-    #   oc start-build vllm-fax4ever --from-dir=/path/to/local/vllm --follow
+    # This is the real, traceable serving artifact -- always built from
+    # committed + pushed git state, never from local uncommitted changes.
+    # For testing local edits, see openshift/debug/ instead.
   strategy:
     type: Docker
     dockerStrategy:
@@ -53,4 +54,12 @@ spec:
     limits:
       cpu: "12"
       memory: "24Gi"
-  completionDeadlineSeconds: 1800
+  # Even with VLLM_USE_PRECOMPILED=1, the full multi-stage build (DeepEP
+  # compile, Rust tokenizer bindings, final image assembly across ~9 stages)
+  # regularly runs past 30 minutes. OpenShift enforces this as the build
+  # pod's activeDeadlineSeconds, so exceeding it kills the pod outright
+  # (shows up as "DeadlineExceeded" / buildah's "received unexpected
+  # terminate signal"), independent of build progress -- so we generously
+  # go back to the original 4h ceiling rather than risk killing a slow but
+  # otherwise-healthy build.
+  completionDeadlineSeconds: 14400
