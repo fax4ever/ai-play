@@ -46,3 +46,11 @@ Option B: use the OpenShift AI console
 1. **Settings → Serving runtimes → Add serving runtime**, paste the contents of `openshift/serving/servingruntime.yaml`.
 2. In the `vllm-pipelines` project, **Models → Deploy model**, select the `vllm-fax4ever-runtime` runtime just added.
 3. Set the connection/storage location to `oci://quay.io/redhat-ai-services/modelcar-catalog:llama-3.2-3b-instruct`, then deploy.
+
+## Alternative: vanilla Kubernetes (no OpenShift AI/KServe)
+
+`k8s/deployment.yaml` is a plain `Deployment`/`Service`, no RHOAI/KServe dependency — works on any Kubernetes cluster with a GPU device plugin exposing `nvidia.com/gpu`. Requires the image to be pushed to a registry reachable from that cluster (edit the `image:` field) since the OpenShift internal registry route won't be reachable elsewhere.
+
+```bash
+kubectl apply -f k8s/deployment.yaml
+```

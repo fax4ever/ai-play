@@ -1,0 +1,67 @@
+# Portable alternative to openshift/serving/*.yaml: no KServe/RHOAI dependency,
+# works on any vanilla Kubernetes cluster with a GPU device plugin exposing
+# nvidia.com/gpu. Requires the image to be pushed to a registry reachable from
+# that cluster (e.g. quay.io) -- the OpenShift internal registry route used
+# elsewhere in this repo won't be reachable from outside this cluster.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vllm-fax4ever
+  labels:
+    app: vllm-fax4ever
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vllm-fax4ever
+  template:
+    metadata:
+      labels:
+        app: vllm-fax4ever
+    spec:
+      initContainers:
+        - name: model-fetch
+          image: quay.io/redhat-ai-services/modelcar-catalog:llama-3.2-3b-instruct
+          command: ["sh", "-c", "cp -r /models/. /mnt/models/"]
+          volumeMounts:
+            - name: model-storage
+              mountPath: /mnt/models
+      containers:
+        - name: vllm
+          image: <your-registry>/vllm-fax4ever:latest
+          # ENTRYPOINT is already ["vllm", "serve"]; model path is positional
+          args:
+            - "/mnt/models"
+            - "--served-model-name=llama-32-3b-instruct"
+            - "--port=8080"
+            - "--dtype=half"
+            - "--max-model-len=20000"
+            - "--gpu-memory-utilization=0.95"
+          ports:
+            - containerPort: 8080
+          resources:
+            requests: { cpu: "1", memory: 6Gi, "nvidia.com/gpu": 1 }
+            limits: { cpu: "4", memory: 16Gi, "nvidia.com/gpu": 1 }
+          readinessProbe:
+            tcpSocket: { port: 8080 }
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 30
+          volumeMounts:
+            - name: model-storage
+              mountPath: /mnt/models
+      volumes:
+        - name: model-storage
+          emptyDir:
+            sizeLimit: 20Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vllm-fax4ever
+spec:
+  selector:
+    app: vllm-fax4ever
+  ports:
+    - port: 8080
+      targetPort: 8080
