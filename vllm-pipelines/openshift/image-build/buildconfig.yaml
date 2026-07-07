@@ -17,12 +17,29 @@ spec:
     dockerStrategy:
       dockerfilePath: docker/Dockerfile
       buildArgs:
-        - name: torch_cuda_arch_list
-          value: "8.9"      # NVIDIA L4 = Ada Lovelace = compute capability 8.9
-        - name: max_jobs
-          value: "10"
-        - name: nvcc_threads
-          value: "2"
+        # We keep changes scoped to pure-Python/CuTe-DSL code (see
+        # openshift/debug/pod.yaml for that workflow), so we never need to
+        # compile the C++/CUDA extensions ourselves -- download vLLM's
+        # official precompiled wheel instead. Turns a 1-4h build into a few
+        # minutes.
+        - name: VLLM_USE_PRECOMPILED
+          value: "1"
+        # Auto-detecting the merge-base commit grabs the literal latest
+        # commit on upstream main, which is usually a few minutes ahead of
+        # nightly wheel publishing and 404s. Pin our fork's actual current
+        # main HEAD instead (zero ABI drift) -- must be a full 40-char SHA
+        # and needs a published wheel; re-check/update after rebasing:
+        #   curl -s https://api.github.com/repos/fax4ever/vllm/commits/main \
+        #     | python3 -c "import json,sys; print(json.load(sys.stdin)['sha'])"
+        #   curl -s -o /dev/null -w "%{http_code}" \
+        #     https://wheels.vllm.ai/<sha>/cu130/vllm/metadata.json
+        # NOTE: the Dockerfile's declared ARG name is VLLM_MERGE_BASE_COMMIT,
+        # not VLLM_PRECOMPILED_WHEEL_COMMIT (that's the env var name it gets
+        # exported as internally) -- build-args that don't match a declared
+        # ARG are silently dropped, which is why our first attempt at this
+        # had no effect.
+        - name: VLLM_MERGE_BASE_COMMIT
+          value: "e55cc59e52791fe7620f6808e409edcf68740b6b"
         - name: vllm_target_device
           value: "cuda"
   output:
@@ -31,10 +48,9 @@ spec:
       name: "vllm-fax4ever:latest"
   resources:
     requests:
-      cpu: "10"
+      cpu: "8"
       memory: "16Gi"
     limits:
       cpu: "12"
-      memory: "32Gi"
-  # vLLM's CUDA build (even scoped to one GPU arch) can take well over an hour
-  completionDeadlineSeconds: 14400
+      memory: "24Gi"
+  completionDeadlineSeconds: 1800

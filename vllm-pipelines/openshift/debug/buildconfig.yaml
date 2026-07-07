@@ -1,0 +1,36 @@
+# Layers your locally modified Python file(s) + a test file on top of the
+# already-built base image. No compilation, just COPY -- should build in
+# well under a minute.
+#
+# Source is always fed at build time with:
+#   oc start-build vllm-fax4ever-patched --from-dir=/home/fax/code/vllm --follow
+# (the context is your local vllm checkout, so COPY paths below are relative
+# to its root)
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: vllm-fax4ever-patched
+  namespace: vllm-pipelines
+spec:
+  source:
+    type: Binary
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfile: |
+        FROM image-registry.openshift-image-registry.svc:5000/vllm-pipelines/vllm-fax4ever:latest
+        # vllm-fax4ever:latest already contains your latest local Python
+        # edits (rebuild it first with step 3's --from-dir option after
+        # changing code). This layer only adds what the runtime image
+        # doesn't ship: pytest and the tests/ directory (not part of the
+        # installed package).
+        RUN pip install pytest
+        COPY tests/kernels/ /tmp/tests/kernels/
+  output:
+    to:
+      kind: ImageStreamTag
+      name: "vllm-fax4ever-patched:latest"
+  resources:
+    requests: { cpu: "1", memory: 2Gi }
+    limits: { cpu: "2", memory: 4Gi }
+  completionDeadlineSeconds: 600

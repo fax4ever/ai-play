@@ -1,0 +1,24 @@
+# Self-healing debug sandbox with GPU access. Scale to 0 to free the GPU when
+# not in use: oc scale deployment/vllm-fax4ever-debug --replicas=0
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vllm-fax4ever-debug
+  namespace: vllm-pipelines
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vllm-fax4ever-debug
+  template:
+    metadata:
+      labels:
+        app: vllm-fax4ever-debug
+    spec:
+      containers:
+        - name: vllm
+          image: image-registry.openshift-image-registry.svc:5000/vllm-pipelines/vllm-fax4ever-patched:latest
+          command: ["sleep", "infinity"]
+          resources:
+            requests: { cpu: "2", memory: 8Gi, "nvidia.com/gpu": 1 }
+            limits: { cpu: "4", memory: 16Gi, "nvidia.com/gpu": 1 }
