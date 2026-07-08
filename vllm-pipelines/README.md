@@ -28,18 +28,14 @@ oc start-build vllm-fax4ever --follow
 
 ### 4. Serve the built image
 
-Option A: apply the manifests
+Apply the manifests directly:
 
 ```bash
 oc apply -f openshift/serving/servingruntime.yaml
 oc apply -f openshift/serving/inferenceservice.yaml
 ```
 
-Option B: use the OpenShift AI console
-
-1. **Settings → Serving runtimes → Add serving runtime**, paste the contents of `openshift/serving/servingruntime.yaml`.
-2. In the `vllm-pipelines` project, **Models → Deploy model**, select the `vllm-fax4ever-runtime` runtime just added.
-3. Set the connection/storage location to `oci://quay.io/redhat-ai-services/modelcar-catalog:llama-3.2-3b-instruct`, then deploy.
+Avoid the OpenShift AI console's deploy wizard for this: its "Connection" field for storage sets an explicit `imagePullSecrets` on the `InferenceService`, which blocks Kubernetes from auto-merging the `default` service account's own internal-registry pull secret and breaks the `vllm-fax4ever:latest` image pull with an "authentication required" error — even though the modelcar image is public and never needed a connection to begin with.
 
 ### 5. Test local Python changes on the GPU
 
