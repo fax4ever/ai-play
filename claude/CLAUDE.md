@@ -42,6 +42,14 @@ asking piecemeal. Approval covers only the exact commands shown; any new or modi
 command requires fresh approval.
 
 
+## GitHub CLI
+
+The `gh` CLI and GitHub API (`api.github.com`) are not available on this machine.
+Do not use `gh` commands or `curl` calls to `api.github.com`. When GitHub data is
+needed (PR reviews, issues, etc.), use `WebFetch` to fetch the HTML page directly,
+or ask the user to provide the information.
+
+
 ## Software Architecture
 
 Keep adapter layers (HTTP route handlers, CLI entry points, background/startup hooks) thin — they should only parse input, call a service-layer method, and shape the response. All business/domain logic belongs in a dedicated service class, not scattered across entry points.
